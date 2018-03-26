@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestCreatorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TestCreatorEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Role" EntityType="TestCreatorModel.Role" />
+    <EntitySet Name="Stanowiska" EntityType="TestCreatorModel.Stanowiska" />
+    <EntitySet Name="Testy" EntityType="TestCreatorModel.Testy" />
+    <EntitySet Name="Uzytkownicy" EntityType="TestCreatorModel.Uzytkownicy" />
+    <AssociationSet Name="FK_Uzytkownicy_Role" Association="TestCreatorModel.FK_Uzytkownicy_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Testy_Stanowiska" Association="TestCreatorModel.FK_Testy_Stanowiska">
+      <End Role="Stanowiska" EntitySet="Stanowiska" />
+      <End Role="Testy" EntitySet="Testy" />
+    </AssociationSet>
+    <FunctionImport Name="GetAllUsers" ReturnType="Collection(TestCreatorModel.SysUsersContener)" />
+    <FunctionImport Name="DeleteUser">
+      <Parameter Name="id" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="UserActualization">
+      <Parameter Name="idUzytkownika" Mode="In" Type="Int64" />
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="haslo" Mode="In" Type="String" />
+      <Parameter Name="id_rola" Mode="In" Type="Int64" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id_rola" />
+    </Key>
+    <Property Name="id_rola" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nazwa" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Uzytkownicy" Relationship="TestCreatorModel.FK_Uzytkownicy_Role" FromRole="Role" ToRole="Uzytkownicy" />
+  </EntityType>
+  <EntityType Name="Stanowiska">
+    <Key>
+      <PropertyRef Name="id_stanowisko" />
+    </Key>
+    <Property Name="id_stanowisko" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nazwa_stanowiska" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Testy" Relationship="TestCreatorModel.FK_Testy_Stanowiska" FromRole="Stanowiska" ToRole="Testy" />
+  </EntityType>
+  <EntityType Name="Testy">
+    <Key>
+      <PropertyRef Name="id_test" />
+    </Key>
+    <Property Name="id_test" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nazwa" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="data_stworzenia" Type="DateTime" Precision="0" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <Property Name="id_stanowisko" Type="Int32" />
+    <NavigationProperty Name="Stanowiska" Relationship="TestCreatorModel.FK_Testy_Stanowiska" FromRole="Testy" ToRole="Stanowiska" />
+  </EntityType>
+  <EntityType Name="Uzytkownicy">
+    <Key>
+      <PropertyRef Name="id_uzytkownik" />
+    </Key>
+    <Property Name="id_uzytkownik" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="haslo" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <Property Name="id_rola" Type="Int32" />
+    <NavigationProperty Name="Role" Relationship="TestCreatorModel.FK_Uzytkownicy_Role" FromRole="Uzytkownicy" ToRole="Role" />
+    <Property Name="data_dodania" Type="DateTime" Precision="3" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Uzytkownicy_Role">
+    <End Type="TestCreatorModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="TestCreatorModel.Uzytkownicy" Role="Uzytkownicy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id_rola" />
+      </Principal>
+      <Dependent Role="Uzytkownicy">
+        <PropertyRef Name="id_rola" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Testy_Stanowiska">
+    <End Type="TestCreatorModel.Stanowiska" Role="Stanowiska" Multiplicity="0..1" />
+    <End Type="TestCreatorModel.Testy" Role="Testy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stanowiska">
+        <PropertyRef Name="id_stanowisko" />
+      </Principal>
+      <Dependent Role="Testy">
+        <PropertyRef Name="id_stanowisko" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sc_getAllUsers_Result">
+    <Property Type="Int32" Name="id_uzytkownik" Nullable="false" />
+    <Property Type="String" Name="login" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="haslo" Nullable="false" MaxLength="255" />
+    <Property Type="Boolean" Name="is_visible" Nullable="false" />
+    <Property Type="Int32" Name="id_rola" Nullable="true" />
+    <Property Type="DateTime" Name="data_dodania" Nullable="true" Precision="23" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="id_rola1" Nullable="false" />
+    <Property Type="String" Name="nazwa" Nullable="false" MaxLength="15" />
+    <Property Type="Boolean" Name="is_visible1" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="AllUsersContener">
+    <Property Type="Int32" Name="id_uzytkownik" Nullable="false" />
+    <Property Type="String" Name="login" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="haslo" Nullable="false" MaxLength="255" />
+    <Property Type="Boolean" Name="is_visible" Nullable="false" />
+    <Property Type="Int32" Name="id_rola" Nullable="true" />
+    <Property Type="DateTime" Name="data_dodania" Nullable="true" Precision="23" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="id_rola1" Nullable="false" />
+    <Property Type="String" Name="nazwa" Nullable="false" MaxLength="15" />
+    <Property Type="Boolean" Name="is_visible1" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SysUsersContener">
+    <Property Type="Int32" Name="id_uzytkownik" Nullable="false" />
+    <Property Type="DateTime" Name="data_dodania" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="is_visible" Nullable="false" />
+    <Property Type="String" Name="login" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="nazwa" Nullable="false" MaxLength="15" />
+  </ComplexType>
+</Schema>

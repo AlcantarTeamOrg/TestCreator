@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestCreatorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id_rola" />
+    </Key>
+    <Property Name="id_rola" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nazwa" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="is_visible" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stanowiska">
+    <Key>
+      <PropertyRef Name="id_stanowisko" />
+    </Key>
+    <Property Name="id_stanowisko" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nazwa_stanowiska" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="is_visible" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Testy">
+    <Key>
+      <PropertyRef Name="id_test" />
+    </Key>
+    <Property Name="id_test" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nazwa" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="data_stworzenia" Type="date" />
+    <Property Name="is_visible" Type="bit" Nullable="false" />
+    <Property Name="id_stanowisko" Type="int" />
+  </EntityType>
+  <EntityType Name="Uzytkownicy">
+    <Key>
+      <PropertyRef Name="id_uzytkownik" />
+    </Key>
+    <Property Name="id_uzytkownik" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="haslo" Type="nchar" MaxLength="255" Nullable="false" />
+    <Property Name="is_visible" Type="bit" Nullable="false" />
+    <Property Name="id_rola" Type="int" />
+    <Property Name="data_dodania" Type="datetime" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Testy_Stanowiska">
+    <End Role="Stanowiska" Type="Self.Stanowiska" Multiplicity="0..1" />
+    <End Role="Testy" Type="Self.Testy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stanowiska">
+        <PropertyRef Name="id_stanowisko" />
+      </Principal>
+      <Dependent Role="Testy">
+        <PropertyRef Name="id_stanowisko" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Uzytkownicy_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Uzytkownicy" Type="Self.Uzytkownicy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id_rola" />
+      </Principal>
+      <Dependent Role="Uzytkownicy">
+        <PropertyRef Name="id_rola" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sc_deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="sc_getAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_AktualizacjaUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idUzytkownika" Type="bigint" Mode="In" />
+    <Parameter Name="login" Type="nchar" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="haslo" Type="nchar" Mode="In" />
+    <Parameter Name="id_rola" Type="bigint" Mode="In" />
+  </Function>
+  <EntityContainer Name="TestCreatorModelStoreContainer">
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stanowiska" EntityType="Self.Stanowiska" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Testy" EntityType="Self.Testy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Testy_Stanowiska" Association="Self.FK_Testy_Stanowiska">
+      <End Role="Stanowiska" EntitySet="Stanowiska" />
+      <End Role="Testy" EntitySet="Testy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Uzytkownicy_Role" Association="Self.FK_Uzytkownicy_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

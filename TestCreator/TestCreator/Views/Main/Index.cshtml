@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Test Creator V2</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/animate.css" rel="stylesheet" media="screen">
+    <link href="~/Content/responsive.css" rel="stylesheet" media="screen">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/ionicons.min.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link href="~/admin-lte/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="~/admin-lte/css/skins/_all-skins.min.css" rel="stylesheet" />
+    @*<link href="~/admin-lte/css/skins/skin-blue-light.min.css" rel="stylesheet" />*@
+    <link href="~/Content/wlasny.css" rel="stylesheet" media="screen">
+
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div id="stronaGlowna" >
+        <header id="menu" class="navbar-fixed-top">
+
+
+            <div class="container">
+                <nav class="navbar navbar-inverse" role="navigation" id="pasek_nawi">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#moje-menu2" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#"><img alt="Corpo Test Creator" src="icons/logo.png" style="height: 35px;"></a>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="moje-menu">
+                            <ul class="nav navbar-nav " id="ul_nawigacja" style="margin-left: 30px">
+
+                                <li class="active"><a href="" id="testsBtn">Testy</a></li>
+                                <li><a href="" id="usersBtn">Użytkownicy</a></li>
+                                <li><a href="" id="teamBtn">Zespół</a></li>
+
+
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+
+                                <li><a class="btn btn-primary" id="loginBtn"><span class="fa fa-key fa-lg"></span> &emsp; Logowanie </a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+            </div>
+
+
+        </header>
+
+
+        <div id="viewport" class="col-lg-12">
+
+
+            @*@{ Html.RenderPartial("_AdminMainPanel");}*@
+
+
+
+        </div>
+
+
+
+
+        <footer></footer>
+        @*@{ Html.RenderPartial("_Loader");}*@
+        
+
+    </div>
+
+</body>
+@{ Html.RenderPartial("_RegistryModal"); }
+@{ Html.RenderPartial("_LoginModal"); }
+@{ Html.RenderPartial("_DeleteUserModal");}
+@{ Html.RenderPartial("_UpdateUserModal");}
+</html>
+
+
+@*<script type="text/javascript" charset="utf8" src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.slimscroll.min.js"></script>
+<script src="~/Scripts/fastclick.js"></script>
+<script src="~/Scripts/tether.min.js"></script>
+@*<script src="~/admin-lte/js/pages/dashboard.js"></script>
+<script src="~/admin-lte/js/pages/dashboard2.js"></script>*@
+<script src="~/admin-lte/js/adminlte.min.js"></script>
+<script src="~/admin-lte/js/demo.js"></script>
+
+<script src="~/Scripts/bootbox.min.js"></script>
+<script src="~/Scripts/custom.js"></script>

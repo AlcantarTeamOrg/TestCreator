@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestCreatorModelStoreContainer" CdmEntityContainer="TestCreatorEntities">
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="TestCreatorModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+          <ScalarProperty Name="id_rola" ColumnName="id_rola" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stanowiska">
+      <EntityTypeMapping TypeName="TestCreatorModel.Stanowiska">
+        <MappingFragment StoreEntitySet="Stanowiska">
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="nazwa_stanowiska" ColumnName="nazwa_stanowiska" />
+          <ScalarProperty Name="id_stanowisko" ColumnName="id_stanowisko" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Testy">
+      <EntityTypeMapping TypeName="TestCreatorModel.Testy">
+        <MappingFragment StoreEntitySet="Testy">
+          <ScalarProperty Name="id_stanowisko" ColumnName="id_stanowisko" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="data_stworzenia" ColumnName="data_stworzenia" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+          <ScalarProperty Name="id_test" ColumnName="id_test" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uzytkownicy">
+      <EntityTypeMapping TypeName="TestCreatorModel.Uzytkownicy">
+        <MappingFragment StoreEntitySet="Uzytkownicy">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="data_dodania" ColumnName="data_dodania" />
+          <ScalarProperty Name="id_rola" ColumnName="id_rola" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="haslo" ColumnName="haslo" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="id_uzytkownik" ColumnName="id_uzytkownik" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetAllUsers" FunctionName="TestCreatorModel.Store.sc_getAllUsers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestCreatorModel.SysUsersContener">
+          <ScalarProperty Name="id_uzytkownik" ColumnName="id_uzytkownik" />
+          <ScalarProperty Name="data_dodania" ColumnName="data_dodania" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="TestCreatorModel.Store.sc_deleteUser" />
+    <FunctionImportMapping FunctionImportName="UserActualization" FunctionName="TestCreatorModel.Store.sp_AktualizacjaUzytkownika" />
+  </EntityContainerMapping>
+</Mapping>
