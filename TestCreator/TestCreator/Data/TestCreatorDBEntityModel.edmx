@@ -67,6 +67,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DodawanieUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="nchar" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="haslo" Type="nchar" Mode="In" />
+          <Parameter Name="id_rola" Type="int" Mode="In" />
+        </Function>
         <Function Name="sc_deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="bigint" Mode="In" />
         </Function>
@@ -119,6 +125,12 @@
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="haslo" Mode="In" Type="String" />
             <Parameter Name="id_rola" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="DodawanieUzytkownika">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="haslo" Mode="In" Type="String" />
+            <Parameter Name="id_rola" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Role">
@@ -281,6 +293,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="TestCreatorModel.Store.sc_deleteUser" />
           <FunctionImportMapping FunctionImportName="UserActualization" FunctionName="TestCreatorModel.Store.sp_AktualizacjaUzytkownika" />
+          <FunctionImportMapping FunctionImportName="DodawanieUzytkownika" FunctionName="TestCreatorModel.Store.DodawanieUzytkownika" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

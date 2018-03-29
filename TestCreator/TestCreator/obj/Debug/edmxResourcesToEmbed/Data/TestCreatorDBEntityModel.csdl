@@ -24,6 +24,12 @@
       <Parameter Name="haslo" Mode="In" Type="String" />
       <Parameter Name="id_rola" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="DodawanieUzytkownika">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="haslo" Mode="In" Type="String" />
+      <Parameter Name="id_rola" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Role">
     <Key>

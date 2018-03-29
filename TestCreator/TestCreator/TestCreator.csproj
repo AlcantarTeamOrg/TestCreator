@@ -191,6 +191,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\NewUser.cs" />
     <Compile Include="Models\Rola.cs" />
     <Compile Include="Models\TestUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -375,7 +376,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tether.js" />
     <Content Include="Scripts\tether.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -402,6 +405,7 @@
     <Content Include="Views\Main\_AdminFooter.cshtml" />
     <Content Include="Views\Main\_AdminControlBar.cshtml" />
     <Content Include="Views\Shared\_UpdateUserModal.cshtml" />
+    <Content Include="Views\Main\_AdminUserAddPart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

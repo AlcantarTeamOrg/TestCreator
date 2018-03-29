@@ -70,5 +70,26 @@ namespace TestCreator.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UserActualization", idUzytkownikaParameter, loginParameter, nameParameter, hasloParameter, id_rolaParameter);
         }
+    
+        public virtual int DodawanieUzytkownika(string login, string name, string haslo, Nullable<int> id_rola)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var hasloParameter = haslo != null ?
+                new ObjectParameter("haslo", haslo) :
+                new ObjectParameter("haslo", typeof(string));
+    
+            var id_rolaParameter = id_rola.HasValue ?
+                new ObjectParameter("id_rola", id_rola) :
+                new ObjectParameter("id_rola", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodawanieUzytkownika", loginParameter, nameParameter, hasloParameter, id_rolaParameter);
+        }
     }
 }

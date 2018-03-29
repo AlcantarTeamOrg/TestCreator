@@ -57,5 +57,6 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="TestCreatorModel.Store.sc_deleteUser" />
     <FunctionImportMapping FunctionImportName="UserActualization" FunctionName="TestCreatorModel.Store.sp_AktualizacjaUzytkownika" />
+    <FunctionImportMapping FunctionImportName="DodawanieUzytkownika" FunctionName="TestCreatorModel.Store.DodawanieUzytkownika" />
   </EntityContainerMapping>
 </Mapping>

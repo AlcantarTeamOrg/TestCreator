@@ -62,6 +62,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="DodawanieUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="nchar" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="haslo" Type="nchar" Mode="In" />
+    <Parameter Name="id_rola" Type="int" Mode="In" />
+  </Function>
   <Function Name="sc_deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="bigint" Mode="In" />
   </Function>

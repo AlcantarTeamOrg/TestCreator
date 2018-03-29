@@ -12,12 +12,17 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
-        <div id="adminUserTableContener">
-            @{ Html.RenderPartial("_UserTable");}
-        </div>
-      
-    </section>
+    
+        <section class="content">
+            <div id="adminUserTableContener" class="tab-pane fade in">
+                @{ Html.RenderPartial("_UserTable");}
+            </div>
+            <div id="adminAddNewUserContener" hidden class="tab-pane fade in active">
+                @{ Html.RenderPartial("_AdminUserAddPart");}
+            </div>
+        </section>
+  
+    
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
@@ -28,3 +33,4 @@
     <strong>Copyright &copy; 2017-2018 <a href="">Alcantar Group</a>.</strong> All rights
     reserved.
 </footer>
+

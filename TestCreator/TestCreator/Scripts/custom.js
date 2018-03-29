@@ -215,3 +215,48 @@ function UpdateUserFunc() {
         }
     });
 }
+
+var hideUTContener = function () {
+
+    $("#adminUserTableContener").hide();
+    $("#adminAddNewUserContener").show();
+
+}
+
+var hideANUContener = function () {
+
+    $("#newAddUserForm")[0].reset();
+    $("#adminUserTableContener").show();
+    $("#adminAddNewUserContener").hide();
+
+
+}
+
+var AddNewUserFunc = function () {
+
+   var dataForm = $("#newAddUserForm").serialize();
+
+    $.ajax({
+        type: "POST",
+        dataType: 'html',
+        url: '/Main/AddUser',
+        data: dataForm,
+        success: function (response) {
+            
+            // console.log(response);
+            // $('#viewport').html(response);
+
+            if (response === "") {
+                bootbox.alert('Operacja dodania nieudana. \n Proszę sprawdzić dane formularza.');
+            } else {
+                bootbox.alert('Pomyślnie dodano');
+                $('#adminUserTableContener').html(response);
+            }
+
+
+        },
+        error: function (error) {
+            bootbox.alert("Napotkano problem");
+        }
+    });
+}

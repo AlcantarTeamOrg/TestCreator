@@ -40,6 +40,26 @@ namespace TestCreator.Controllers
                 }
 
                 ViewBag.Role = dditems1;
+                
+            }
+        }
+
+        private bool UserValidation(NewUser nu)
+        {
+            if (nu.FirstName != "" && nu.NewUserName != "" && nu.Password != "" && nu.Repassword != "" && nu.Role != "")
+            {
+                if(nu.Password.Length>6 && nu.Password == nu.Repassword)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -94,6 +114,7 @@ namespace TestCreator.Controllers
                 }
                 else
                 {
+                    GetUsersRoles();
                     return PartialView("_AdminPanel");
                 }
             }
@@ -178,6 +199,39 @@ namespace TestCreator.Controllers
                 }
             }
                 
+        }
+
+        [HttpPost]
+        public ActionResult AddUser(NewUser tu)
+        {
+            using(var dbContext = new TestCreatorEntities())
+            {
+
+                if (UserValidation(tu))
+                {
+                    int rola = Convert.ToInt32(tu.Role);
+                    int res = dbContext.DodawanieUzytkownika(tu.NewUserName, tu.FirstName, tu.Password, rola);
+                    if (res != 0)
+                    {
+                        GetAllUserData();
+
+                        return PartialView("_UserTable");
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+
+                
+
+
+                
+            }
         }
     }
 }
