@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'G:\PROJEKTY\TestCreator\TestCreator\TestCreator\Data\TestCreatorDBEntityModel.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\Magistratura\Zwinne\Alcantar\TestCreator\TestCreator\Data\TestCreatorDBEntityModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

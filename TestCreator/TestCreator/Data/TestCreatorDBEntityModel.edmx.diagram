@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="TestCreatorModel.Uzytkownicy" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="TestCreatorModel.FK_Uzytkownicy_Role" />
         <AssociationConnector Association="TestCreatorModel.FK_Testy_Stanowiska" />
+        <EntityTypeShape EntityType="TestCreatorModel.Pytanie" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TestCreatorModel.sysdiagrams" Width="1.5" PointX="5.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

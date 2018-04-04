@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TestCreatorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Pytanie">
+          <Key>
+            <PropertyRef Name="id_pytanie" />
+          </Key>
+          <Property Name="id_pytanie" Type="bigint" Nullable="false" />
+          <Property Name="pytanie" Type="nvarchar(max)" />
+          <Property Name="odpowiedz" Type="nvarchar(max)" />
+          <Property Name="typ" Type="tinyint" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="id_rola" />
@@ -21,13 +30,23 @@
           <Property Name="nazwa_stanowiska" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="is_visible" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Testy">
           <Key>
             <PropertyRef Name="id_test" />
           </Key>
           <Property Name="id_test" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nazwa" Type="nchar" MaxLength="15" Nullable="false" />
-          <Property Name="data_stworzenia" Type="date" />
+          <Property Name="data_stworzenia" Type="datetime" />
           <Property Name="is_visible" Type="bit" Nullable="false" />
           <Property Name="id_stanowisko" Type="int" />
         </EntityType>
@@ -67,26 +86,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="DodawanieUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="login" Type="nchar" Mode="In" />
-          <Parameter Name="name" Type="nvarchar" Mode="In" />
-          <Parameter Name="haslo" Type="nchar" Mode="In" />
-          <Parameter Name="id_rola" Type="int" Mode="In" />
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
-        <Function Name="sc_deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="bigint" Mode="In" />
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
-        <Function Name="sc_getAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="sp_AktualizacjaUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="idUzytkownika" Type="bigint" Mode="In" />
-          <Parameter Name="login" Type="nchar" Mode="In" />
-          <Parameter Name="name" Type="nvarchar" Mode="In" />
-          <Parameter Name="haslo" Type="nchar" Mode="In" />
-          <Parameter Name="id_rola" Type="bigint" Mode="In" />
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="TestCreatorModelStoreContainer">
+          <EntitySet Name="Pytanie" EntityType="Self.Pytanie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stanowiska" EntityType="Self.Stanowiska" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Testy" EntityType="Self.Testy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Testy_Stanowiska" Association="Self.FK_Testy_Stanowiska">
@@ -132,6 +167,38 @@
             <Parameter Name="haslo" Mode="In" Type="String" />
             <Parameter Name="id_rola" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Pytanie" EntityType="TestCreatorModel.Pytanie" />
+          <EntitySet Name="sysdiagrams" EntityType="TestCreatorModel.sysdiagrams" />
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(TestCreatorModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(TestCreatorModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -157,7 +224,7 @@
           </Key>
           <Property Name="id_test" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nazwa" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
-          <Property Name="data_stworzenia" Type="DateTime" Precision="0" />
+          <Property Name="data_stworzenia" Type="DateTime" Precision="3" />
           <Property Name="is_visible" Type="Boolean" Nullable="false" />
           <Property Name="id_stanowisko" Type="Int32" />
           <NavigationProperty Name="Stanowiska" Relationship="TestCreatorModel.FK_Testy_Stanowiska" FromRole="Testy" ToRole="Stanowiska" />
@@ -231,6 +298,36 @@
           <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="nazwa" Nullable="false" MaxLength="15" />
         </ComplexType>
+        <EntityType Name="Pytanie">
+          <Key>
+            <PropertyRef Name="id_pytanie" />
+          </Key>
+          <Property Name="id_pytanie" Type="Int64" Nullable="false" />
+          <Property Name="pytanie1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="odpowiedz" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="typ" Type="Byte" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -279,22 +376,52 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAllUsers" FunctionName="TestCreatorModel.Store.sc_getAllUsers">
-          <ResultMapping>
-              <ComplexTypeMapping TypeName="TestCreatorModel.SysUsersContener">
-                <ScalarProperty Name="id_uzytkownik" ColumnName="id_uzytkownik" />
-                <ScalarProperty Name="data_dodania" ColumnName="data_dodania" />
-                <ScalarProperty Name="is_visible" ColumnName="is_visible" />
-                <ScalarProperty Name="login" ColumnName="login" />
+          <EntitySetMapping Name="Pytanie">
+            <EntityTypeMapping TypeName="TestCreatorModel.Pytanie">
+              <MappingFragment StoreEntitySet="Pytanie">
+                <ScalarProperty Name="typ" ColumnName="typ" />
+                <ScalarProperty Name="odpowiedz" ColumnName="odpowiedz" />
+                <ScalarProperty Name="pytanie1" ColumnName="pytanie" />
+                <ScalarProperty Name="id_pytanie" ColumnName="id_pytanie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TestCreatorModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="TestCreatorModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="TestCreatorModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="TestCreatorModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="TestCreatorModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestCreatorModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="TestCreatorModel.Store.sc_deleteUser" />
-          <FunctionImportMapping FunctionImportName="UserActualization" FunctionName="TestCreatorModel.Store.sp_AktualizacjaUzytkownika" />
-          <FunctionImportMapping FunctionImportName="DodawanieUzytkownika" FunctionName="TestCreatorModel.Store.DodawanieUzytkownika" />
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="TestCreatorModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestCreatorModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="TestCreatorModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="TestCreatorModel.Store.sp_upgraddiagrams" />
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

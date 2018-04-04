@@ -30,6 +30,38 @@
       <Parameter Name="haslo" Mode="In" Type="String" />
       <Parameter Name="id_rola" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="Pytanie" EntityType="TestCreatorModel.Pytanie" />
+    <EntitySet Name="sysdiagrams" EntityType="TestCreatorModel.sysdiagrams" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(TestCreatorModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(TestCreatorModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>
   <EntityType Name="Role">
     <Key>
@@ -55,7 +87,7 @@
     </Key>
     <Property Name="id_test" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="nazwa" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
-    <Property Name="data_stworzenia" Type="DateTime" Precision="0" />
+    <Property Name="data_stworzenia" Type="DateTime" Precision="3" />
     <Property Name="is_visible" Type="Boolean" Nullable="false" />
     <Property Name="id_stanowisko" Type="Int32" />
     <NavigationProperty Name="Stanowiska" Relationship="TestCreatorModel.FK_Testy_Stanowiska" FromRole="Testy" ToRole="Stanowiska" />
@@ -128,5 +160,35 @@
     <Property Type="String" Name="login" Nullable="false" MaxLength="15" />
     <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="nazwa" Nullable="false" MaxLength="15" />
+  </ComplexType>
+  <EntityType Name="Pytanie">
+    <Key>
+      <PropertyRef Name="id_pytanie" />
+    </Key>
+    <Property Name="id_pytanie" Type="Int64" Nullable="false" />
+    <Property Name="pytanie1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="odpowiedz" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="typ" Type="Byte" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
 </Schema>

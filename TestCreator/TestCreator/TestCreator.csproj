@@ -152,7 +152,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\PytaniesController.cs" />
     <Compile Include="Data\AllUsersContener.cs">
+      <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Pytanie.cs">
       <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Role.cs">
@@ -161,7 +165,16 @@
     <Compile Include="Data\sc_getAllUsers_Result.cs">
       <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sp_helpdiagrams_Result.cs">
+      <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Stanowiska.cs">
+      <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sysdiagrams.cs">
       <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\SysUsersContener.cs">
@@ -191,6 +204,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Sha512Helper.cs" />
     <Compile Include="Models\NewUser.cs" />
     <Compile Include="Models\Rola.cs" />
     <Compile Include="Models\TestUser.cs" />
@@ -406,10 +420,14 @@
     <Content Include="Views\Main\_AdminControlBar.cshtml" />
     <Content Include="Views\Shared\_UpdateUserModal.cshtml" />
     <Content Include="Views\Main\_AdminUserAddPart.cshtml" />
+    <Content Include="Views\Pytanies\Create.cshtml" />
+    <Content Include="Views\Pytanies\Delete.cshtml" />
+    <Content Include="Views\Pytanies\Details.cshtml" />
+    <Content Include="Views\Pytanies\Edit.cshtml" />
+    <Content Include="Views\Pytanies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
