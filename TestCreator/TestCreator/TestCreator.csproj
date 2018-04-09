@@ -152,8 +152,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
-    <Compile Include="Controllers\PytaniasController.cs" />
     <Compile Include="Data\AllUsersContener.cs">
+      <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DodawanieUzytkownika1_Result.cs">
       <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Odpowiedz.cs">
@@ -166,6 +168,9 @@
       <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\sc_getAllUsers_Result.cs">
+      <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sc_getAllUsers_Result1.cs">
       <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\sp_helpdiagramdefinition_Result.cs">
@@ -423,10 +428,6 @@
     <Content Include="Views\Main\_AdminControlBar.cshtml" />
     <Content Include="Views\Shared\_UpdateUserModal.cshtml" />
     <Content Include="Views\Main\_AdminUserAddPart.cshtml" />
-    <Content Include="Views\Pytanias\Index.cshtml" />
-    <Content Include="Views\Pytanias\Create.cshtml" />
-    <Content Include="Views\Pytanias\Details.cshtml" />
-    <Content Include="Views\Pytanias\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

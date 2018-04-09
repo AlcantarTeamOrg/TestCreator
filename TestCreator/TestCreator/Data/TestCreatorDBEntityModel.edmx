@@ -9,21 +9,21 @@
           <Key>
             <PropertyRef Name="id_odpowiedz" />
           </Key>
-          <Property Name="id_odpowiedz" Type="int" Nullable="false" />
-          <Property Name="id_pytanie" Type="int" />
-          <Property Name="tresc_odpowiedzi" Type="nchar" MaxLength="10" />
+          <Property Name="id_odpowiedz" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_pytanie" Type="int" Nullable="false" />
+          <Property Name="tresc_odpowiedzi" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="is_visible" Type="bit" Nullable="false" />
-          <Property Name="dobra" Type="bit" />
+          <Property Name="dobra" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Pytania">
           <Key>
             <PropertyRef Name="id_pytanie" />
           </Key>
-          <Property Name="id_pytanie" Type="int" Nullable="false" />
-          <Property Name="tresc_pytania" Type="nvarchar(max)" />
+          <Property Name="id_pytanie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tresc_pytania" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="is_visible" Type="bit" Nullable="false" />
           <Property Name="otwarte" Type="bit" Nullable="false" />
-          <Property Name="id_test" Type="int" />
+          <Property Name="id_test" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -57,7 +57,7 @@
           </Key>
           <Property Name="id_test" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nazwa" Type="nchar" MaxLength="15" Nullable="false" />
-          <Property Name="data_stworzenia" Type="datetime" />
+          <Property Name="data_stworzenia" Type="date" />
           <Property Name="is_visible" Type="bit" Nullable="false" />
           <Property Name="id_stanowisko" Type="int" />
         </EntityType>
@@ -73,8 +73,8 @@
           <Property Name="data_dodania" Type="datetime" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_Odpowiedz_Pytania">
-          <End Role="Pytania" Type="Self.Pytania" Multiplicity="0..1" />
+        <Association Name="FK__Odpowiedz__id_py__787EE5A0">
+          <End Role="Pytania" Type="Self.Pytania" Multiplicity="1" />
           <End Role="Odpowiedz" Type="Self.Odpowiedz" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pytania">
@@ -85,8 +85,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pytania_Testy">
-          <End Role="Testy" Type="Self.Testy" Multiplicity="0..1" />
+        <Association Name="FK__Pytania__id_test__797309D9">
+          <End Role="Testy" Type="Self.Testy" Multiplicity="1" />
           <End Role="Pytania" Type="Self.Pytania" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Testy">
@@ -121,7 +121,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AktualizacjaUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUzytkownika" Type="int" Mode="In" />
+          <Parameter Name="login" Type="nchar" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="haslo" Type="nchar" Mode="In" />
+          <Parameter Name="data_dodania" Type="datetime" Mode="In" />
+          <Parameter Name="is_visible" Type="bit" Mode="In" />
+          <Parameter Name="id_rola" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DodawanieUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="nchar" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="haslo" Type="nchar" Mode="In" />
+          <Parameter Name="id_rola" Type="int" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sc_deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sc_getAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_AktualizacjaUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUzytkownika" Type="bigint" Mode="In" />
+          <Parameter Name="login" Type="nchar" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="haslo" Type="nchar" Mode="In" />
+          <Parameter Name="id_rola" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -160,11 +186,11 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Testy" EntityType="Self.Testy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Odpowiedz_Pytania" Association="Self.FK_Odpowiedz_Pytania">
+          <AssociationSet Name="FK__Odpowiedz__id_py__787EE5A0" Association="Self.FK__Odpowiedz__id_py__787EE5A0">
             <End Role="Pytania" EntitySet="Pytania" />
             <End Role="Odpowiedz" EntitySet="Odpowiedz" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pytania_Testy" Association="Self.FK_Pytania_Testy">
+          <AssociationSet Name="FK__Pytania__id_test__797309D9" Association="Self.FK__Pytania__id_test__797309D9">
             <End Role="Testy" EntitySet="Testy" />
             <End Role="Pytania" EntitySet="Pytania" />
           </AssociationSet>
@@ -244,11 +270,37 @@
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="Odpowiedz" EntityType="TestCreatorModel.Odpowiedz" />
           <EntitySet Name="Pytania" EntityType="TestCreatorModel.Pytania" />
-          <AssociationSet Name="FK_Odpowiedz_Pytania" Association="TestCreatorModel.FK_Odpowiedz_Pytania">
+          <FunctionImport Name="AktualizacjaUzytkownika">
+            <Parameter Name="idUzytkownika" Mode="In" Type="Int32" />
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="haslo" Mode="In" Type="String" />
+            <Parameter Name="data_dodania" Mode="In" Type="DateTime" />
+            <Parameter Name="is_visible" Mode="In" Type="Boolean" />
+            <Parameter Name="id_rola" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DodawanieUzytkownika1" ReturnType="Collection(TestCreatorModel.DodawanieUzytkownika1_Result)">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="haslo" Mode="In" Type="String" />
+            <Parameter Name="id_rola" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sc_deleteUser">
+          <Parameter Name="id" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sc_getAllUsers" ReturnType="Collection(TestCreatorModel.sc_getAllUsers_Result1)" />
+          <FunctionImport Name="sp_AktualizacjaUzytkownika">
+            <Parameter Name="idUzytkownika" Mode="In" Type="Int64" />
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="haslo" Mode="In" Type="String" />
+            <Parameter Name="id_rola" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <AssociationSet Name="FK__Odpowiedz__id_py__787EE5A0" Association="TestCreatorModel.FK__Odpowiedz__id_py__787EE5A0">
             <End Role="Pytania" EntitySet="Pytania" />
             <End Role="Odpowiedz" EntitySet="Odpowiedz" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pytania_Testy" Association="TestCreatorModel.FK_Pytania_Testy">
+          <AssociationSet Name="FK__Pytania__id_test__797309D9" Association="TestCreatorModel.FK__Pytania__id_test__797309D9">
             <End Role="Testy" EntitySet="Testy" />
             <End Role="Pytania" EntitySet="Pytania" />
           </AssociationSet>
@@ -277,11 +329,11 @@
           </Key>
           <Property Name="id_test" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nazwa" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
-          <Property Name="data_stworzenia" Type="DateTime" Precision="3" />
+          <Property Name="data_stworzenia" Type="DateTime" Precision="0" />
           <Property Name="is_visible" Type="Boolean" Nullable="false" />
           <Property Name="id_stanowisko" Type="Int32" />
           <NavigationProperty Name="Stanowiska" Relationship="TestCreatorModel.FK_Testy_Stanowiska" FromRole="Testy" ToRole="Stanowiska" />
-          <NavigationProperty Name="Pytania" Relationship="TestCreatorModel.FK_Pytania_Testy" FromRole="Testy" ToRole="Pytania" />
+          <NavigationProperty Name="Pytania" Relationship="TestCreatorModel.FK__Pytania__id_test__797309D9" FromRole="Testy" ToRole="Pytania" />
         </EntityType>
         <EntityType Name="Uzytkownicy">
           <Key>
@@ -378,26 +430,38 @@
             <PropertyRef Name="id_odpowiedz" />
           </Key>
           <Property Name="id_odpowiedz" Type="Int32" Nullable="false" />
-          <Property Name="id_pytanie" Type="Int32" />
-          <Property Name="tresc_odpowiedzi" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="id_pytanie" Type="Int32" Nullable="false" />
+          <Property Name="tresc_odpowiedzi" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="is_visible" Type="Boolean" Nullable="false" />
-          <Property Name="dobra" Type="Boolean" />
-          <NavigationProperty Name="Pytania" Relationship="TestCreatorModel.FK_Odpowiedz_Pytania" FromRole="Odpowiedz" ToRole="Pytania" />
+          <Property Name="dobra" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pytania" Relationship="TestCreatorModel.FK__Odpowiedz__id_py__787EE5A0" FromRole="Odpowiedz" ToRole="Pytania" />
         </EntityType>
         <EntityType Name="Pytania">
           <Key>
             <PropertyRef Name="id_pytanie" />
           </Key>
           <Property Name="id_pytanie" Type="Int32" Nullable="false" />
-          <Property Name="tresc_pytania" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tresc_pytania" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="is_visible" Type="Boolean" Nullable="false" />
           <Property Name="otwarte" Type="Boolean" Nullable="false" />
-          <Property Name="id_test" Type="Int32" />
-          <NavigationProperty Name="Odpowiedz" Relationship="TestCreatorModel.FK_Odpowiedz_Pytania" FromRole="Pytania" ToRole="Odpowiedz" />
-          <NavigationProperty Name="Testy" Relationship="TestCreatorModel.FK_Pytania_Testy" FromRole="Pytania" ToRole="Testy" />
+          <Property Name="id_test" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Odpowiedz" Relationship="TestCreatorModel.FK__Odpowiedz__id_py__787EE5A0" FromRole="Pytania" ToRole="Odpowiedz" />
+          <NavigationProperty Name="Testy" Relationship="TestCreatorModel.FK__Pytania__id_test__797309D9" FromRole="Pytania" ToRole="Testy" />
         </EntityType>
-        <Association Name="FK_Odpowiedz_Pytania">
-          <End Type="TestCreatorModel.Pytania" Role="Pytania" Multiplicity="0..1" />
+        <ComplexType Name="DodawanieUzytkownika1_Result">
+          <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+          <Property Type="String" Name="ErrorMessage" Nullable="true" MaxLength="4000" />
+        </ComplexType>
+        <ComplexType Name="sc_getAllUsers_Result1">
+          <Property Type="Int32" Name="id_uzytkownik" Nullable="false" />
+          <Property Type="DateTime" Name="data_dodania" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="is_visible" Nullable="false" />
+          <Property Type="String" Name="login" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="nazwa" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <Association Name="FK__Odpowiedz__id_py__787EE5A0">
+          <End Type="TestCreatorModel.Pytania" Role="Pytania" Multiplicity="1" />
           <End Type="TestCreatorModel.Odpowiedz" Role="Odpowiedz" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pytania">
@@ -408,8 +472,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pytania_Testy">
-          <End Type="TestCreatorModel.Testy" Role="Testy" Multiplicity="0..1" />
+        <Association Name="FK__Pytania__id_test__797309D9">
+          <End Type="TestCreatorModel.Testy" Role="Testy" Multiplicity="1" />
           <End Type="TestCreatorModel.Pytania" Role="Pytania" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Testy">
@@ -525,6 +589,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AktualizacjaUzytkownika" FunctionName="TestCreatorModel.Store.AktualizacjaUzytkownika" />
+          <FunctionImportMapping FunctionImportName="DodawanieUzytkownika1" FunctionName="TestCreatorModel.Store.DodawanieUzytkownika">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestCreatorModel.DodawanieUzytkownika1_Result">
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sc_deleteUser" FunctionName="TestCreatorModel.Store.sc_deleteUser" />
+          <FunctionImportMapping FunctionImportName="sc_getAllUsers" FunctionName="TestCreatorModel.Store.sc_getAllUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestCreatorModel.sc_getAllUsers_Result1">
+                <ScalarProperty Name="id_uzytkownik" ColumnName="id_uzytkownik" />
+                <ScalarProperty Name="data_dodania" ColumnName="data_dodania" />
+                <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_AktualizacjaUzytkownika" FunctionName="TestCreatorModel.Store.sp_AktualizacjaUzytkownika" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

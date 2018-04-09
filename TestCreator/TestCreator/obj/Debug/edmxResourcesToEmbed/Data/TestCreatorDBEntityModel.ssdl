@@ -4,21 +4,21 @@
     <Key>
       <PropertyRef Name="id_odpowiedz" />
     </Key>
-    <Property Name="id_odpowiedz" Type="int" Nullable="false" />
-    <Property Name="id_pytanie" Type="int" />
-    <Property Name="tresc_odpowiedzi" Type="nchar" MaxLength="10" />
+    <Property Name="id_odpowiedz" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_pytanie" Type="int" Nullable="false" />
+    <Property Name="tresc_odpowiedzi" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="is_visible" Type="bit" Nullable="false" />
-    <Property Name="dobra" Type="bit" />
+    <Property Name="dobra" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Pytania">
     <Key>
       <PropertyRef Name="id_pytanie" />
     </Key>
-    <Property Name="id_pytanie" Type="int" Nullable="false" />
-    <Property Name="tresc_pytania" Type="nvarchar(max)" />
+    <Property Name="id_pytanie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tresc_pytania" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="is_visible" Type="bit" Nullable="false" />
     <Property Name="otwarte" Type="bit" Nullable="false" />
-    <Property Name="id_test" Type="int" />
+    <Property Name="id_test" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -52,7 +52,7 @@
     </Key>
     <Property Name="id_test" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nazwa" Type="nchar" MaxLength="15" Nullable="false" />
-    <Property Name="data_stworzenia" Type="datetime" />
+    <Property Name="data_stworzenia" Type="date" />
     <Property Name="is_visible" Type="bit" Nullable="false" />
     <Property Name="id_stanowisko" Type="int" />
   </EntityType>
@@ -68,8 +68,8 @@
     <Property Name="data_dodania" Type="datetime" />
     <Property Name="name" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <Association Name="FK_Odpowiedz_Pytania">
-    <End Role="Pytania" Type="Self.Pytania" Multiplicity="0..1" />
+  <Association Name="FK__Odpowiedz__id_py__787EE5A0">
+    <End Role="Pytania" Type="Self.Pytania" Multiplicity="1" />
     <End Role="Odpowiedz" Type="Self.Odpowiedz" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pytania">
@@ -80,8 +80,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Pytania_Testy">
-    <End Role="Testy" Type="Self.Testy" Multiplicity="0..1" />
+  <Association Name="FK__Pytania__id_test__797309D9">
+    <End Role="Testy" Type="Self.Testy" Multiplicity="1" />
     <End Role="Pytania" Type="Self.Pytania" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Testy">
@@ -116,7 +116,33 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="AktualizacjaUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idUzytkownika" Type="int" Mode="In" />
+    <Parameter Name="login" Type="nchar" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="haslo" Type="nchar" Mode="In" />
+    <Parameter Name="data_dodania" Type="datetime" Mode="In" />
+    <Parameter Name="is_visible" Type="bit" Mode="In" />
+    <Parameter Name="id_rola" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DodawanieUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="nchar" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="haslo" Type="nchar" Mode="In" />
+    <Parameter Name="id_rola" Type="int" Mode="In" />
+  </Function>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sc_deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="sc_getAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_AktualizacjaUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idUzytkownika" Type="bigint" Mode="In" />
+    <Parameter Name="login" Type="nchar" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="haslo" Type="nchar" Mode="In" />
+    <Parameter Name="id_rola" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -155,11 +181,11 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Testy" EntityType="Self.Testy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Odpowiedz_Pytania" Association="Self.FK_Odpowiedz_Pytania">
+    <AssociationSet Name="FK__Odpowiedz__id_py__787EE5A0" Association="Self.FK__Odpowiedz__id_py__787EE5A0">
       <End Role="Pytania" EntitySet="Pytania" />
       <End Role="Odpowiedz" EntitySet="Odpowiedz" />
     </AssociationSet>
-    <AssociationSet Name="FK_Pytania_Testy" Association="Self.FK_Pytania_Testy">
+    <AssociationSet Name="FK__Pytania__id_test__797309D9" Association="Self.FK__Pytania__id_test__797309D9">
       <End Role="Testy" EntitySet="Testy" />
       <End Role="Pytania" EntitySet="Pytania" />
     </AssociationSet>

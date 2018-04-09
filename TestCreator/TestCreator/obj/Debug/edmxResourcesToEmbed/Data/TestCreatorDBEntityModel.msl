@@ -100,5 +100,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AktualizacjaUzytkownika" FunctionName="TestCreatorModel.Store.AktualizacjaUzytkownika" />
+    <FunctionImportMapping FunctionImportName="DodawanieUzytkownika1" FunctionName="TestCreatorModel.Store.DodawanieUzytkownika">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestCreatorModel.DodawanieUzytkownika1_Result">
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sc_deleteUser" FunctionName="TestCreatorModel.Store.sc_deleteUser" />
+    <FunctionImportMapping FunctionImportName="sc_getAllUsers" FunctionName="TestCreatorModel.Store.sc_getAllUsers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestCreatorModel.sc_getAllUsers_Result1">
+          <ScalarProperty Name="id_uzytkownik" ColumnName="id_uzytkownik" />
+          <ScalarProperty Name="data_dodania" ColumnName="data_dodania" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_AktualizacjaUzytkownika" FunctionName="TestCreatorModel.Store.sp_AktualizacjaUzytkownika" />
   </EntityContainerMapping>
 </Mapping>

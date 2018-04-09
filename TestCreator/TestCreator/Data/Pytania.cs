@@ -24,7 +24,7 @@ namespace TestCreator.Data
         public string tresc_pytania { get; set; }
         public bool is_visible { get; set; }
         public bool otwarte { get; set; }
-        public Nullable<int> id_test { get; set; }
+        public int id_test { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Odpowiedz> Odpowiedz { get; set; }

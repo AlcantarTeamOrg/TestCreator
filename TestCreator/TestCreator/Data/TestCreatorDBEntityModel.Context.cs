@@ -197,5 +197,98 @@ namespace TestCreator.Data
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual int AktualizacjaUzytkownika(Nullable<int> idUzytkownika, string login, string name, string haslo, Nullable<System.DateTime> data_dodania, Nullable<bool> is_visible, Nullable<int> id_rola)
+        {
+            var idUzytkownikaParameter = idUzytkownika.HasValue ?
+                new ObjectParameter("idUzytkownika", idUzytkownika) :
+                new ObjectParameter("idUzytkownika", typeof(int));
+    
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var hasloParameter = haslo != null ?
+                new ObjectParameter("haslo", haslo) :
+                new ObjectParameter("haslo", typeof(string));
+    
+            var data_dodaniaParameter = data_dodania.HasValue ?
+                new ObjectParameter("data_dodania", data_dodania) :
+                new ObjectParameter("data_dodania", typeof(System.DateTime));
+    
+            var is_visibleParameter = is_visible.HasValue ?
+                new ObjectParameter("is_visible", is_visible) :
+                new ObjectParameter("is_visible", typeof(bool));
+    
+            var id_rolaParameter = id_rola.HasValue ?
+                new ObjectParameter("id_rola", id_rola) :
+                new ObjectParameter("id_rola", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AktualizacjaUzytkownika", idUzytkownikaParameter, loginParameter, nameParameter, hasloParameter, data_dodaniaParameter, is_visibleParameter, id_rolaParameter);
+        }
+    
+        public virtual ObjectResult<DodawanieUzytkownika1_Result> DodawanieUzytkownika1(string login, string name, string haslo, Nullable<int> id_rola)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var hasloParameter = haslo != null ?
+                new ObjectParameter("haslo", haslo) :
+                new ObjectParameter("haslo", typeof(string));
+    
+            var id_rolaParameter = id_rola.HasValue ?
+                new ObjectParameter("id_rola", id_rola) :
+                new ObjectParameter("id_rola", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DodawanieUzytkownika1_Result>("DodawanieUzytkownika1", loginParameter, nameParameter, hasloParameter, id_rolaParameter);
+        }
+    
+        public virtual int sc_deleteUser(Nullable<long> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sc_deleteUser", idParameter);
+        }
+    
+        public virtual ObjectResult<sc_getAllUsers_Result1> sc_getAllUsers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sc_getAllUsers_Result1>("sc_getAllUsers");
+        }
+    
+        public virtual int sp_AktualizacjaUzytkownika(Nullable<long> idUzytkownika, string login, string name, string haslo, Nullable<long> id_rola)
+        {
+            var idUzytkownikaParameter = idUzytkownika.HasValue ?
+                new ObjectParameter("idUzytkownika", idUzytkownika) :
+                new ObjectParameter("idUzytkownika", typeof(long));
+    
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var hasloParameter = haslo != null ?
+                new ObjectParameter("haslo", haslo) :
+                new ObjectParameter("haslo", typeof(string));
+    
+            var id_rolaParameter = id_rola.HasValue ?
+                new ObjectParameter("id_rola", id_rola) :
+                new ObjectParameter("id_rola", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AktualizacjaUzytkownika", idUzytkownikaParameter, loginParameter, nameParameter, hasloParameter, id_rolaParameter);
+        }
     }
 }

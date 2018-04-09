@@ -10,16 +10,10 @@
 namespace TestCreator.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Odpowiedz
+    public partial class DodawanieUzytkownika1_Result
     {
-        public int id_odpowiedz { get; set; }
-        public int id_pytanie { get; set; }
-        public string tresc_odpowiedzi { get; set; }
-        public bool is_visible { get; set; }
-        public bool dobra { get; set; }
-    
-        public virtual Pytania Pytania { get; set; }
+        public Nullable<int> ErrorNumber { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }
