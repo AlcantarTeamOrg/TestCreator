@@ -43,16 +43,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Pytanie">
-      <EntityTypeMapping TypeName="TestCreatorModel.Pytanie">
-        <MappingFragment StoreEntitySet="Pytanie">
-          <ScalarProperty Name="typ" ColumnName="typ" />
-          <ScalarProperty Name="odpowiedz" ColumnName="odpowiedz" />
-          <ScalarProperty Name="pytanie1" ColumnName="pytanie" />
-          <ScalarProperty Name="id_pytanie" ColumnName="id_pytanie" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="TestCreatorModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -88,5 +78,27 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="TestCreatorModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="TestCreatorModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="Odpowiedz">
+      <EntityTypeMapping TypeName="TestCreatorModel.Odpowiedz">
+        <MappingFragment StoreEntitySet="Odpowiedz">
+          <ScalarProperty Name="dobra" ColumnName="dobra" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="tresc_odpowiedzi" ColumnName="tresc_odpowiedzi" />
+          <ScalarProperty Name="id_pytanie" ColumnName="id_pytanie" />
+          <ScalarProperty Name="id_odpowiedz" ColumnName="id_odpowiedz" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pytania">
+      <EntityTypeMapping TypeName="TestCreatorModel.Pytania">
+        <MappingFragment StoreEntitySet="Pytania">
+          <ScalarProperty Name="id_test" ColumnName="id_test" />
+          <ScalarProperty Name="otwarte" ColumnName="otwarte" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="tresc_pytania" ColumnName="tresc_pytania" />
+          <ScalarProperty Name="id_pytanie" ColumnName="id_pytanie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

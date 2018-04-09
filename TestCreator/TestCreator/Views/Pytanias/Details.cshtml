@@ -1,0 +1,44 @@
+﻿@model TestCreator.Data.Pytania
+
+<div>
+    <h4>Pytania</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tresc_pytania)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tresc_pytania)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_visible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_visible)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.otwarte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.otwarte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Testy.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Testy.nazwa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_pytanie }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

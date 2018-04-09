@@ -11,8 +11,11 @@
         <EntityTypeShape EntityType="TestCreatorModel.Uzytkownicy" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="TestCreatorModel.FK_Uzytkownicy_Role" />
         <AssociationConnector Association="TestCreatorModel.FK_Testy_Stanowiska" />
-        <EntityTypeShape EntityType="TestCreatorModel.Pytanie" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="TestCreatorModel.sysdiagrams" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="TestCreatorModel.Odpowiedz" Width="1.5" PointX="7.5" PointY="7" />
+        <EntityTypeShape EntityType="TestCreatorModel.Pytania" Width="1.5" PointX="5.25" PointY="6.875" />
+        <AssociationConnector Association="TestCreatorModel.FK_Odpowiedz_Pytania" />
+        <AssociationConnector Association="TestCreatorModel.FK_Pytania_Testy" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

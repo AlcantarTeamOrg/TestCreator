@@ -1,13 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TestCreatorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="Pytanie">
+  <EntityType Name="Odpowiedz">
+    <Key>
+      <PropertyRef Name="id_odpowiedz" />
+    </Key>
+    <Property Name="id_odpowiedz" Type="int" Nullable="false" />
+    <Property Name="id_pytanie" Type="int" />
+    <Property Name="tresc_odpowiedzi" Type="nchar" MaxLength="10" />
+    <Property Name="is_visible" Type="bit" Nullable="false" />
+    <Property Name="dobra" Type="bit" />
+  </EntityType>
+  <EntityType Name="Pytania">
     <Key>
       <PropertyRef Name="id_pytanie" />
     </Key>
-    <Property Name="id_pytanie" Type="bigint" Nullable="false" />
-    <Property Name="pytanie" Type="nvarchar(max)" />
-    <Property Name="odpowiedz" Type="nvarchar(max)" />
-    <Property Name="typ" Type="tinyint" />
+    <Property Name="id_pytanie" Type="int" Nullable="false" />
+    <Property Name="tresc_pytania" Type="nvarchar(max)" />
+    <Property Name="is_visible" Type="bit" Nullable="false" />
+    <Property Name="otwarte" Type="bit" Nullable="false" />
+    <Property Name="id_test" Type="int" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -57,6 +68,30 @@
     <Property Name="data_dodania" Type="datetime" />
     <Property Name="name" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_Odpowiedz_Pytania">
+    <End Role="Pytania" Type="Self.Pytania" Multiplicity="0..1" />
+    <End Role="Odpowiedz" Type="Self.Odpowiedz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pytania">
+        <PropertyRef Name="id_pytanie" />
+      </Principal>
+      <Dependent Role="Odpowiedz">
+        <PropertyRef Name="id_pytanie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pytania_Testy">
+    <End Role="Testy" Type="Self.Testy" Multiplicity="0..1" />
+    <End Role="Pytania" Type="Self.Pytania" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Testy">
+        <PropertyRef Name="id_test" />
+      </Principal>
+      <Dependent Role="Pytania">
+        <PropertyRef Name="id_test" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Testy_Stanowiska">
     <End Role="Stanowiska" Type="Self.Stanowiska" Multiplicity="0..1" />
     <End Role="Testy" Type="Self.Testy" Multiplicity="*" />
@@ -113,12 +148,21 @@
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="TestCreatorModelStoreContainer">
-    <EntitySet Name="Pytanie" EntityType="Self.Pytanie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Odpowiedz" EntityType="Self.Odpowiedz" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pytania" EntityType="Self.Pytania" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Stanowiska" EntityType="Self.Stanowiska" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Testy" EntityType="Self.Testy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Odpowiedz_Pytania" Association="Self.FK_Odpowiedz_Pytania">
+      <End Role="Pytania" EntitySet="Pytania" />
+      <End Role="Odpowiedz" EntitySet="Odpowiedz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pytania_Testy" Association="Self.FK_Pytania_Testy">
+      <End Role="Testy" EntitySet="Testy" />
+      <End Role="Pytania" EntitySet="Pytania" />
+    </AssociationSet>
     <AssociationSet Name="FK_Testy_Stanowiska" Association="Self.FK_Testy_Stanowiska">
       <End Role="Stanowiska" EntitySet="Stanowiska" />
       <End Role="Testy" EntitySet="Testy" />

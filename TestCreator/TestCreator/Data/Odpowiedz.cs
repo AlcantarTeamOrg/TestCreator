@@ -12,11 +12,14 @@ namespace TestCreator.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Pytanie
+    public partial class Odpowiedz
     {
-        public long id_pytanie { get; set; }
-        public string pytanie1 { get; set; }
-        public string odpowiedz { get; set; }
-        public Nullable<byte> typ { get; set; }
+        public int id_odpowiedz { get; set; }
+        public Nullable<int> id_pytanie { get; set; }
+        public string tresc_odpowiedzi { get; set; }
+        public bool is_visible { get; set; }
+        public Nullable<bool> dobra { get; set; }
+    
+        public virtual Pytania Pytania { get; set; }
     }
 }

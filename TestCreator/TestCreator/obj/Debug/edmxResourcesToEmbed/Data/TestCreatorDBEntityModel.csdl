@@ -30,7 +30,6 @@
       <Parameter Name="haslo" Mode="In" Type="String" />
       <Parameter Name="id_rola" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="Pytanie" EntityType="TestCreatorModel.Pytanie" />
     <EntitySet Name="sysdiagrams" EntityType="TestCreatorModel.sysdiagrams" />
     <FunctionImport Name="sp_alterdiagram">
       <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -62,6 +61,16 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="Odpowiedz" EntityType="TestCreatorModel.Odpowiedz" />
+    <EntitySet Name="Pytania" EntityType="TestCreatorModel.Pytania" />
+    <AssociationSet Name="FK_Odpowiedz_Pytania" Association="TestCreatorModel.FK_Odpowiedz_Pytania">
+      <End Role="Pytania" EntitySet="Pytania" />
+      <End Role="Odpowiedz" EntitySet="Odpowiedz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pytania_Testy" Association="TestCreatorModel.FK_Pytania_Testy">
+      <End Role="Testy" EntitySet="Testy" />
+      <End Role="Pytania" EntitySet="Pytania" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Role">
     <Key>
@@ -91,6 +100,7 @@
     <Property Name="is_visible" Type="Boolean" Nullable="false" />
     <Property Name="id_stanowisko" Type="Int32" />
     <NavigationProperty Name="Stanowiska" Relationship="TestCreatorModel.FK_Testy_Stanowiska" FromRole="Testy" ToRole="Stanowiska" />
+    <NavigationProperty Name="Pytania" Relationship="TestCreatorModel.FK_Pytania_Testy" FromRole="Testy" ToRole="Pytania" />
   </EntityType>
   <EntityType Name="Uzytkownicy">
     <Key>
@@ -161,15 +171,6 @@
     <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="nazwa" Nullable="false" MaxLength="15" />
   </ComplexType>
-  <EntityType Name="Pytanie">
-    <Key>
-      <PropertyRef Name="id_pytanie" />
-    </Key>
-    <Property Name="id_pytanie" Type="Int64" Nullable="false" />
-    <Property Name="pytanie1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="odpowiedz" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="typ" Type="Byte" />
-  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -191,4 +192,51 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="Odpowiedz">
+    <Key>
+      <PropertyRef Name="id_odpowiedz" />
+    </Key>
+    <Property Name="id_odpowiedz" Type="Int32" Nullable="false" />
+    <Property Name="id_pytanie" Type="Int32" />
+    <Property Name="tresc_odpowiedzi" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <Property Name="dobra" Type="Boolean" />
+    <NavigationProperty Name="Pytania" Relationship="TestCreatorModel.FK_Odpowiedz_Pytania" FromRole="Odpowiedz" ToRole="Pytania" />
+  </EntityType>
+  <EntityType Name="Pytania">
+    <Key>
+      <PropertyRef Name="id_pytanie" />
+    </Key>
+    <Property Name="id_pytanie" Type="Int32" Nullable="false" />
+    <Property Name="tresc_pytania" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <Property Name="otwarte" Type="Boolean" Nullable="false" />
+    <Property Name="id_test" Type="Int32" />
+    <NavigationProperty Name="Odpowiedz" Relationship="TestCreatorModel.FK_Odpowiedz_Pytania" FromRole="Pytania" ToRole="Odpowiedz" />
+    <NavigationProperty Name="Testy" Relationship="TestCreatorModel.FK_Pytania_Testy" FromRole="Pytania" ToRole="Testy" />
+  </EntityType>
+  <Association Name="FK_Odpowiedz_Pytania">
+    <End Type="TestCreatorModel.Pytania" Role="Pytania" Multiplicity="0..1" />
+    <End Type="TestCreatorModel.Odpowiedz" Role="Odpowiedz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pytania">
+        <PropertyRef Name="id_pytanie" />
+      </Principal>
+      <Dependent Role="Odpowiedz">
+        <PropertyRef Name="id_pytanie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pytania_Testy">
+    <End Type="TestCreatorModel.Testy" Role="Testy" Multiplicity="0..1" />
+    <End Type="TestCreatorModel.Pytania" Role="Pytania" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Testy">
+        <PropertyRef Name="id_test" />
+      </Principal>
+      <Dependent Role="Pytania">
+        <PropertyRef Name="id_test" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

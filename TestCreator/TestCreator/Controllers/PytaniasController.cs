@@ -10,107 +10,112 @@ using TestCreator.Data;
 
 namespace TestCreator.Controllers
 {
-    public class PytaniesController : Controller
+    public class PytaniasController : Controller
     {
         private TestCreatorEntities db = new TestCreatorEntities();
 
-        // GET: Pytanies
+        // GET: Pytanias
         public ActionResult Index()
         {
-            return View(db.Pytanie.ToList());
+            var pytania = db.Pytania.Include(p => p.Testy);
+            return View(pytania.ToList());
         }
 
-        // GET: Pytanies/Details/5
-        public ActionResult Details(long? id)
+        // GET: Pytanias/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pytanie pytanie = db.Pytanie.Find(id);
-            if (pytanie == null)
+            Pytania pytania = db.Pytania.Find(id);
+            if (pytania == null)
             {
                 return HttpNotFound();
             }
-            return View(pytanie);
+            return View(pytania);
         }
 
-        // GET: Pytanies/Create
+        // GET: Pytanias/Create
         public ActionResult Create()
         {
+            ViewBag.id_test = new SelectList(db.Testy, "id_test", "nazwa");
             return View();
         }
 
-        // POST: Pytanies/Create
+        // POST: Pytanias/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_pytanie,pytanie1,odpowiedz,typ")] Pytanie pytanie)
+        public ActionResult Create([Bind(Include = "id_pytanie,tresc_pytania,is_visible,otwarte,id_test")] Pytania pytania)
         {
             if (ModelState.IsValid)
             {
-                db.Pytanie.Add(pytanie);
+                db.Pytania.Add(pytania);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(pytanie);
+            ViewBag.id_test = new SelectList(db.Testy, "id_test", "nazwa", pytania.id_test);
+            return View(pytania);
         }
 
-        // GET: Pytanies/Edit/5
-        public ActionResult Edit(long? id)
+        // GET: Pytanias/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pytanie pytanie = db.Pytanie.Find(id);
-            if (pytanie == null)
+            Pytania pytania = db.Pytania.Find(id);
+            if (pytania == null)
             {
                 return HttpNotFound();
             }
-            return View(pytanie);
+            ViewBag.id_test = new SelectList(db.Testy, "id_test", "nazwa", pytania.id_test);
+            return View(pytania);
         }
 
-        // POST: Pytanies/Edit/5
+        // POST: Pytanias/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_pytanie,pytanie1,odpowiedz,typ")] Pytanie pytanie)
+        public ActionResult Edit([Bind(Include = "id_pytanie,tresc_pytania,is_visible,otwarte,id_test")] Pytania pytania)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pytanie).State = EntityState.Modified;
+                db.Entry(pytania).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(pytanie);
+            ViewBag.id_test = new SelectList(db.Testy, "id_test", "nazwa", pytania.id_test);
+            return View(pytania);
         }
 
-        // GET: Pytanies/Delete/5
-        public ActionResult Delete(long? id)
+        // GET: Pytanias/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pytanie pytanie = db.Pytanie.Find(id);
-            if (pytanie == null)
+            Pytania pytania = db.Pytania.Find(id);
+            if (pytania == null)
             {
                 return HttpNotFound();
             }
-            return View(pytanie);
+            return View(pytania);
         }
 
-        // POST: Pytanies/Delete/5
+        // POST: Pytanias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Pytanie pytanie = db.Pytanie.Find(id);
-            db.Pytanie.Remove(pytanie);
+            Pytania pytania = db.Pytania.Find(id);
+            db.Pytania.Remove(pytania);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

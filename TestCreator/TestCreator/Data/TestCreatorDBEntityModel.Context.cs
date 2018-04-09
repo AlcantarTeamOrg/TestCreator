@@ -31,8 +31,9 @@ namespace TestCreator.Data
         public virtual DbSet<Stanowiska> Stanowiska { get; set; }
         public virtual DbSet<Testy> Testy { get; set; }
         public virtual DbSet<Uzytkownicy> Uzytkownicy { get; set; }
-        public virtual DbSet<Pytanie> Pytanie { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Odpowiedz> Odpowiedz { get; set; }
+        public virtual DbSet<Pytania> Pytania { get; set; }
     
         public virtual ObjectResult<SysUsersContener> GetAllUsers()
         {
