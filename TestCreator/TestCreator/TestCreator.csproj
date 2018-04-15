@@ -446,6 +446,8 @@
     <Content Include="Views\Stanowiskas\Create.cshtml" />
     <Content Include="Views\Pytanias\Create.cshtml" />
     <Content Include="Views\Odpowiedzs\Create.cshtml" />
+    <Content Include="Views\Pytanias\Details.cshtml" />
+    <Content Include="Views\Pytanias\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

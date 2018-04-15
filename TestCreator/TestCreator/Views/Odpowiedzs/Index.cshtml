@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<TestCreator.Data.Odpowiedz>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowy", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.tresc_odpowiedzi)
+            Treść Odpowiedzi
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.is_visible)
+            Czy jest widoczne
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.dobra)
+            Czy jest poprawna
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Pytania.tresc_pytania)
+            Treść pytania
         </th>
         <th></th>
     </tr>
@@ -35,9 +35,10 @@
             @Html.DisplayFor(modelItem => item.Pytania.tresc_pytania)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_odpowiedz }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_odpowiedz }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_odpowiedz })
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.id_odpowiedz }) |
+            @Html.ActionLink("Detale", "Details", new { id=item.id_odpowiedz }) 
+            @*|
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_odpowiedz })*@
         </td>
     </tr>
 }
