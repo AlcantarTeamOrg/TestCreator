@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TestCreator.Data.Pytania>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tresc_pytania)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.is_visible)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.otwarte)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Testy.nazwa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tresc_pytania)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.is_visible)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.otwarte)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Testy.nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_pytanie }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_pytanie }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_pytanie })
+        </td>
+    </tr>
+}
+
+</table>

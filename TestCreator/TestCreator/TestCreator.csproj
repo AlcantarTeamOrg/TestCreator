@@ -152,7 +152,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\OdpowiedzsController.cs" />
+    <Compile Include="Controllers\PytaniasController.cs" />
+    <Compile Include="Controllers\StanowiskasController.cs" />
+    <Compile Include="Controllers\TestiesController.cs" />
     <Compile Include="Data\AllUsersContener.cs">
       <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
     </Compile>
@@ -210,9 +215,11 @@
     <Compile Include="Data\Uzytkownicy.cs">
       <DependentUpon>TestCreatorDBEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enum\Enums.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ParamHelper.cs" />
     <Compile Include="Helpers\Sha512Helper.cs" />
     <Compile Include="Models\NewUser.cs" />
     <Compile Include="Models\Rola.cs" />
@@ -429,6 +436,16 @@
     <Content Include="Views\Main\_AdminControlBar.cshtml" />
     <Content Include="Views\Shared\_UpdateUserModal.cshtml" />
     <Content Include="Views\Main\_AdminUserAddPart.cshtml" />
+    <Content Include="Views\Pytanias\Index.cshtml" />
+    <Content Include="Views\Odpowiedzs\Index.cshtml" />
+    <Content Include="Views\Odpowiedzs\Details.cshtml" />
+    <Content Include="Views\Odpowiedzs\Edit.cshtml" />
+    <Content Include="Views\Testies\Index.cshtml" />
+    <Content Include="Views\Testies\Create.cshtml" />
+    <Content Include="Views\Stanowiskas\Index.cshtml" />
+    <Content Include="Views\Stanowiskas\Create.cshtml" />
+    <Content Include="Views\Pytanias\Create.cshtml" />
+    <Content Include="Views\Odpowiedzs\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
