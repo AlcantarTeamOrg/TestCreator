@@ -1,21 +1,25 @@
 ﻿@model IEnumerable<TestCreator.Data.Testy>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowe", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.nazwa)
+            @*@Html.DisplayNameFor(model => model.nazwa)*@
+            Nazwa
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.data_stworzenia)
+            @*@Html.DisplayNameFor(model => model.data_stworzenia)*@
+            Data stworzenia
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.is_visible)
+            @*@Html.DisplayNameFor(model => model.is_visible)*@
+            Widoczność
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Stanowiska.nazwa_stanowiska)
+            @*@Html.DisplayNameFor(model => model.Stanowiska.nazwa_stanowiska)*@
+            Nazwa stanowiska
         </th>
         <th></th>
     </tr>
@@ -35,9 +39,8 @@
             @Html.DisplayFor(modelItem => item.Stanowiska.nazwa_stanowiska)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_test }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_test }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_test })
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.id_test }) |
+            @Html.ActionLink("Detale", "Details", new { id=item.id_test }) |
         </td>
     </tr>
 }

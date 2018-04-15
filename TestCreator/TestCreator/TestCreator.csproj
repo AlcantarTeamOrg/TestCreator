@@ -448,6 +448,10 @@
     <Content Include="Views\Odpowiedzs\Create.cshtml" />
     <Content Include="Views\Pytanias\Details.cshtml" />
     <Content Include="Views\Pytanias\Edit.cshtml" />
+    <Content Include="Views\Testies\Edit.cshtml" />
+    <Content Include="Views\Testies\Details.cshtml" />
+    <Content Include="Views\Stanowiskas\Edit.cshtml" />
+    <Content Include="Views\Stanowiskas\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

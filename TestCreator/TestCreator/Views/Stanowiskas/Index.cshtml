@@ -1,15 +1,17 @@
 ﻿@model IEnumerable<TestCreator.Data.Stanowiska>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowe", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.nazwa_stanowiska)
+            @*@Html.DisplayNameFor(model => model.nazwa_stanowiska)*@
+            Nazwa
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.is_visible)
+            @*@Html.DisplayNameFor(model => model.is_visible)*@
+            Widoczność
         </th>
         <th></th>
     </tr>
@@ -23,9 +25,8 @@
             @Html.DisplayFor(modelItem => item.is_visible)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_stanowisko }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_stanowisko }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_stanowisko })
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.id_stanowisko }) |
+            @Html.ActionLink("Detale", "Details", new { id=item.id_stanowisko }) |
         </td>
     </tr>
 }

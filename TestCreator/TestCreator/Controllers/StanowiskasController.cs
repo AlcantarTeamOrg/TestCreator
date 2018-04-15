@@ -50,6 +50,7 @@ namespace TestCreator.Controllers
         {
             if (ModelState.IsValid)
             {
+                stanowiska.is_visible = true;
                 db.Stanowiska.Add(stanowiska);
                 db.SaveChanges();
                 return RedirectToAction("Index");
