@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestCreatorModelStoreContainer" CdmEntityContainer="TestCreatorEntities">
+    <EntitySetMapping Name="Odpowiedz">
+      <EntityTypeMapping TypeName="TestCreatorModel.Odpowiedz">
+        <MappingFragment StoreEntitySet="Odpowiedz">
+          <ScalarProperty Name="id_odpowiedz" ColumnName="id_odpowiedz" />
+          <ScalarProperty Name="id_pytanie" ColumnName="id_pytanie" />
+          <ScalarProperty Name="tresc_odpowiedzi" ColumnName="tresc_odpowiedzi" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="dobra" ColumnName="dobra" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pytania">
+      <EntityTypeMapping TypeName="TestCreatorModel.Pytania">
+        <MappingFragment StoreEntitySet="Pytania">
+          <ScalarProperty Name="id_pytanie" ColumnName="id_pytanie" />
+          <ScalarProperty Name="tresc_pytania" ColumnName="tresc_pytania" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="otwarte" ColumnName="otwarte" />
+          <ScalarProperty Name="id_test" ColumnName="id_test" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stanowiska">
+      <EntityTypeMapping TypeName="TestCreatorModel.Stanowiska">
+        <MappingFragment StoreEntitySet="Stanowiska">
+          <ScalarProperty Name="id_stanowisko" ColumnName="id_stanowisko" />
+          <ScalarProperty Name="nazwa_stanowiska" ColumnName="nazwa_stanowiska" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Testy">
+      <EntityTypeMapping TypeName="TestCreatorModel.Testy">
+        <MappingFragment StoreEntitySet="Testy">
+          <ScalarProperty Name="id_test" ColumnName="id_test" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+          <ScalarProperty Name="data_stworzenia" ColumnName="data_stworzenia" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="id_stanowisko" ColumnName="id_stanowisko" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

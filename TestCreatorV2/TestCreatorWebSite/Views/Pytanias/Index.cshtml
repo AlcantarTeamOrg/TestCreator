@@ -1,0 +1,49 @@
+﻿@model IEnumerable<TestCreatorWebSite.Data.Pytania>
+
+<p>
+    @Html.ActionLink("Dodaj nowe", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.tresc_pytania)*@
+            Treść pytania
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.is_visible)*@
+            Widoczność
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.otwarte)*@
+            Otwarte
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Testy.nazwa)*@
+            Test
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tresc_pytania)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.is_visible)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.otwarte)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Testy.nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.id_pytanie }) |
+            @Html.ActionLink("Detale", "Details", new { id=item.id_pytanie }) |
+            @Html.ActionLink("Usuwanie", "Delete", new { id=item.id_pytanie })
+        </td>
+    </tr>
+}
+
+</table>

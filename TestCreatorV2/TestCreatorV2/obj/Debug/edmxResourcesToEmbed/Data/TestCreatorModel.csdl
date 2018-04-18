@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestCreatorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id_rola" />
+    </Key>
+    <Property Name="id_rola" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nazwa" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Uzytkownicy" Relationship="Self.FK_Uzytkownicy_Role" FromRole="Role" ToRole="Uzytkownicy" />
+  </EntityType>
+  <EntityType Name="Uzytkownicy">
+    <Key>
+      <PropertyRef Name="id_uzytkownik" />
+    </Key>
+    <Property Name="id_uzytkownik" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="haslo" Type="String" MaxLength="255" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <Property Name="id_rola" Type="Int32" />
+    <Property Name="data_dodania" Type="DateTime" Precision="3" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Uzytkownicy_Role" FromRole="Uzytkownicy" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_Uzytkownicy_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Uzytkownicy" Type="Self.Uzytkownicy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id_rola" />
+      </Principal>
+      <Dependent Role="Uzytkownicy">
+        <PropertyRef Name="id_rola" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestCreatorEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" />
+    <AssociationSet Name="FK_Uzytkownicy_Role" Association="Self.FK_Uzytkownicy_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
+    </AssociationSet>
+    <FunctionImport Name="DodawanieUzytkownika">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="haslo" Mode="In" Type="String" />
+      <Parameter Name="id_rola" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteUser">
+      <Parameter Name="id" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllUsers" ReturnType="Collection(TestCreatorModel.AllUsersConteiner)" />
+    <FunctionImport Name="AktualizacjaUzytkownika">
+      <Parameter Name="idUzytkownika" Mode="In" Type="Int64" />
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="haslo" Mode="In" Type="String" />
+      <Parameter Name="id_rola" Mode="In" Type="Int64" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="DodawanieUzytkownika_Result">
+    <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+    <Property Type="String" Name="ErrorMessage" Nullable="true" MaxLength="4000" />
+  </ComplexType>
+  <ComplexType Name="sc_getAllUsers_Result">
+    <Property Type="Int32" Name="id_uzytkownik" Nullable="false" />
+    <Property Type="DateTime" Name="data_dodania" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="is_visible" Nullable="false" />
+    <Property Type="String" Name="login" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="nazwa" Nullable="false" MaxLength="15" />
+  </ComplexType>
+  <ComplexType Name="AllUsersConteiner">
+    <Property Type="Int32" Name="id_uzytkownik" Nullable="false" />
+    <Property Type="DateTime" Name="data_dodania" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="is_visible" Nullable="false" />
+    <Property Type="String" Name="login" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="nazwa" Nullable="false" MaxLength="15" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,43 @@
+﻿@model TestCreatorWebSite.Models.Uzytkownik
+
+
+
+                        <form id="loginForm" class="form-signin">
+
+                            <h3 class="form-signin-heading">
+
+                                <img src="~/Content/img/alphatest.png" style="width:100px;height:100px" alt="Tu dać logo" />
+                                <br />
+
+                            </h3>
+
+                            <div class="form-group">
+                                <label for="username" class="cols-sm-2 control-label">Nazwa Użytkownika</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                        @Html.TextBoxFor(model => model.Login, new { @class = "form-control", @placeholder = "Podaj Login" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="cols-sm-2 control-label">Hasło</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                        @Html.PasswordFor(model => model.Haslo, new { @class = "form-control", @placeholder = "Podaj Hasło" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+
+                            <div class="form-group ">
+                                <button type="button" id="loginButton" class="btn btn-primary btn-lg btn-block login-button" style="width: 60%; margin: auto">Zaloguj</button>
+                            </div>
+
+                        </form>
+                   
+

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestCreatorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Odpowiedz">
+    <Key>
+      <PropertyRef Name="id_odpowiedz" />
+    </Key>
+    <Property Name="id_odpowiedz" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_pytanie" Type="Int32" Nullable="false" />
+    <Property Name="tresc_odpowiedzi" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <Property Name="dobra" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Pytania" Relationship="Self.FK__Odpowiedz__id_py__787EE5A0" FromRole="Odpowiedz" ToRole="Pytania" />
+  </EntityType>
+  <EntityType Name="Pytania">
+    <Key>
+      <PropertyRef Name="id_pytanie" />
+    </Key>
+    <Property Name="id_pytanie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tresc_pytania" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <Property Name="otwarte" Type="Boolean" Nullable="false" />
+    <Property Name="id_test" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Odpowiedz" Relationship="Self.FK__Odpowiedz__id_py__787EE5A0" FromRole="Pytania" ToRole="Odpowiedz" />
+    <NavigationProperty Name="Testy" Relationship="Self.FK__Pytania__id_test__797309D9" FromRole="Pytania" ToRole="Testy" />
+  </EntityType>
+  <EntityType Name="Stanowiska">
+    <Key>
+      <PropertyRef Name="id_stanowisko" />
+    </Key>
+    <Property Name="id_stanowisko" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nazwa_stanowiska" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Testy" Relationship="Self.FK_Testy_Stanowiska" FromRole="Stanowiska" ToRole="Testy" />
+  </EntityType>
+  <EntityType Name="Testy">
+    <Key>
+      <PropertyRef Name="id_test" />
+    </Key>
+    <Property Name="id_test" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nazwa" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="data_stworzenia" Type="DateTime" Precision="0" />
+    <Property Name="is_visible" Type="Boolean" Nullable="false" />
+    <Property Name="id_stanowisko" Type="Int32" />
+    <NavigationProperty Name="Pytania" Relationship="Self.FK__Pytania__id_test__797309D9" FromRole="Testy" ToRole="Pytania" />
+    <NavigationProperty Name="Stanowiska" Relationship="Self.FK_Testy_Stanowiska" FromRole="Testy" ToRole="Stanowiska" />
+  </EntityType>
+  <Association Name="FK__Odpowiedz__id_py__787EE5A0">
+    <End Role="Pytania" Type="Self.Pytania" Multiplicity="1" />
+    <End Role="Odpowiedz" Type="Self.Odpowiedz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pytania">
+        <PropertyRef Name="id_pytanie" />
+      </Principal>
+      <Dependent Role="Odpowiedz">
+        <PropertyRef Name="id_pytanie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pytania__id_test__797309D9">
+    <End Role="Testy" Type="Self.Testy" Multiplicity="1" />
+    <End Role="Pytania" Type="Self.Pytania" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Testy">
+        <PropertyRef Name="id_test" />
+      </Principal>
+      <Dependent Role="Pytania">
+        <PropertyRef Name="id_test" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Testy_Stanowiska">
+    <End Role="Stanowiska" Type="Self.Stanowiska" Multiplicity="0..1" />
+    <End Role="Testy" Type="Self.Testy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stanowiska">
+        <PropertyRef Name="id_stanowisko" />
+      </Principal>
+      <Dependent Role="Testy">
+        <PropertyRef Name="id_stanowisko" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestCreatorEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Odpowiedz" EntityType="Self.Odpowiedz" />
+    <EntitySet Name="Pytania" EntityType="Self.Pytania" />
+    <EntitySet Name="Stanowiska" EntityType="Self.Stanowiska" />
+    <EntitySet Name="Testy" EntityType="Self.Testy" />
+    <AssociationSet Name="FK__Odpowiedz__id_py__787EE5A0" Association="Self.FK__Odpowiedz__id_py__787EE5A0">
+      <End Role="Pytania" EntitySet="Pytania" />
+      <End Role="Odpowiedz" EntitySet="Odpowiedz" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pytania__id_test__797309D9" Association="Self.FK__Pytania__id_test__797309D9">
+      <End Role="Testy" EntitySet="Testy" />
+      <End Role="Pytania" EntitySet="Pytania" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Testy_Stanowiska" Association="Self.FK_Testy_Stanowiska">
+      <End Role="Stanowiska" EntitySet="Stanowiska" />
+      <End Role="Testy" EntitySet="Testy" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
