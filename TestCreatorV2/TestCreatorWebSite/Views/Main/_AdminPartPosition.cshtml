@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TestCreatorWebSite.Data.Stanowiska>
+<div class="row" id="adminPartPosition" style="display:none">
+   
+    <div class="col-lg-12">
+        <table class="table">
+            <tr>
+                <th>
+                   
+                    Nazwa
+                </th>
+                <th>
+                  
+                    Widoczność
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nazwa_stanowiska)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.is_visible)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", "Stanowiskas",new { id = item.id_stanowisko },null) |
+                        @Html.ActionLink("Detale", "Details", "Stanowiskas", new { id = item.id_stanowisko },null) |
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+    </div>
+</div>

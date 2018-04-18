@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestCreatorModelStoreContainer" CdmEntityContainer="TestCreatorEntities">
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="TestCreatorModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="id_rola" ColumnName="id_rola" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uzytkownicy">
+      <EntityTypeMapping TypeName="TestCreatorModel.Uzytkownicy">
+        <MappingFragment StoreEntitySet="Uzytkownicy">
+          <ScalarProperty Name="id_uzytkownik" ColumnName="id_uzytkownik" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="haslo" ColumnName="haslo" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="id_rola" ColumnName="id_rola" />
+          <ScalarProperty Name="data_dodania" ColumnName="data_dodania" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DodawanieUzytkownika" FunctionName="TestCreatorModel.Store.DodawanieUzytkownika" />
+    <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="TestCreatorModel.Store.sc_deleteUser" />
+    <FunctionImportMapping FunctionImportName="GetAllUsers" FunctionName="TestCreatorModel.Store.sc_getAllUsers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestCreatorModel.AllUsersConteiner">
+          <ScalarProperty Name="id_uzytkownik" ColumnName="id_uzytkownik" />
+          <ScalarProperty Name="data_dodania" ColumnName="data_dodania" />
+          <ScalarProperty Name="is_visible" ColumnName="is_visible" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AktualizacjaUzytkownika" FunctionName="TestCreatorModel.Store.sp_AktualizacjaUzytkownika" />
+  </EntityContainerMapping>
+</Mapping>
