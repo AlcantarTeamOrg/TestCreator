@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TestCreatorWebSite.Data.Testy>
+
+<p style="padding : 10px; margin-top: 50px;">
+   @Html.ActionLink("Dodaj nowe", "Create",null, new { @class = "btn btn-default" } )
+    @Html.ActionLink("Do Pytan", "Index", "Pytanias",null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Do Odpowiedzi", "Index", "Odpowiedzs",null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Do Stanowisk", "Index", "Stanowiskas", null, new { @class = "btn btn-default" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.nazwa)*@
+            Nazwa
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.data_stworzenia)*@
+            Data stworzenia
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.is_visible)*@
+            Widoczność
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Stanowiska.nazwa_stanowiska)*@
+            Nazwa stanowiska
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.data_stworzenia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.is_visible)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stanowiska.nazwa_stanowiska)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.id_test }) |
+            @Html.ActionLink("Detale", "Details", new { id=item.id_test }) |
+        </td>
+    </tr>
+}
+
+</table>
