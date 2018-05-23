@@ -272,6 +272,7 @@
     <Content Include="admin-lte\js\demo.js" />
     <Content Include="admin-lte\js\pages\dashboard.js" />
     <Content Include="admin-lte\js\pages\dashboard2.js" />
+    <Content Include="Content\AddQuest.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -424,6 +425,12 @@
     <Content Include="Views\Stanowiskas\Details.cshtml" />
     <Content Include="Views\Stanowiskas\Edit.cshtml" />
     <Content Include="Views\Stanowiskas\Index.cshtml" />
+    <Content Include="Views\Pytanias\AddQuest.cshtml" />
+    <Content Include="Views\Pytanias\Open.cshtml" />
+    <Content Include="Views\Pytanias\Closed.cshtml" />
+    <Content Include="Views\Pytanias\Scale.cshtml" />
+    <Content Include="Views\Pytanias\Number.cshtml" />
+    <Content Include="Views\Pytanias\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

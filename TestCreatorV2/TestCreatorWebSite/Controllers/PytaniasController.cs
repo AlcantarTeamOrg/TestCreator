@@ -135,5 +135,11 @@ namespace TestCreatorWebSite.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // Motoda pokazująca widok AddQuest - panel, gdzie można dodać pytanie
+        public ActionResult AddQuest()
+        {
+            return View();
+        }
     }
 }
