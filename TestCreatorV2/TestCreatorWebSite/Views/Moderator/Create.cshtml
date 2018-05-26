@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Main/Index.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<style>
+    div.main {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    div.main2 {
+        width: 700px;
+    }
+</style>
+
+<div class="main">
+    <div class="main2">
+        <h2>Dodaj redaktora</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger">Imię</div>
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Mail" class="control-label">Adres mailowy</label>
+                        <input asp-for="Mail" class="form-control" />
+                        <span asp-validation-for="Mail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label">Nazwa użytkownika</label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label">Hasło</label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Repassword" class="control-label">Powtórz hasło</label>
+                        <input asp-for="Repassword" class="form-control" />
+                        <span asp-validation-for="Repassword" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("Wróć", "Index", "Moderator")
+        </div>
+
+    </div>
+</div>
+

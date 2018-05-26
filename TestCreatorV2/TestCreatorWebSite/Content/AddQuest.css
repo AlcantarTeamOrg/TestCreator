@@ -3,6 +3,19 @@
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
+}
+
+div.main_up {
+    display: flex;
+    justify-content: space-around;
+}
+
+div.main_down {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
 }
 
 div.main2 {
@@ -12,6 +25,15 @@ div.main2 {
 }
 
 div.quest {
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    box-shadow: -20px 20px 40px #999999;
+}
+
+div.quest_test {
     margin: 20px;
     background-color: white;
     border-radius: 10px;

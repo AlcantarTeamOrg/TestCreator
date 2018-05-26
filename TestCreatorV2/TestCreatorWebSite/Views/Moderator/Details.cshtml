@@ -1,0 +1,95 @@
+﻿@{
+    Layout = "~/Views/Main/Index.cshtml";
+}
+
+<style>
+    div.main {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    div.main2 {
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    div.redaktor_delete {
+        width: 100%;
+        display: flex;
+        justify-content: space-between
+    }
+
+    div.up {
+        margin: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: -20px 20px 40px #999999;
+        padding: 20px;
+    }
+
+    div.down {
+        margin: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: -20px 20px 40px #999999;
+        padding: 20px;
+    }
+</style>
+
+<div class="main">
+    <div class="main2">
+        <div class="up">
+            <div class="redaktor_delete">
+                <h3>Redaktor</h3>
+                @Html.ActionLink("Usuń użytkownika", "Delete", "Moderator")
+            </div>
+
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Imię
+                </dt>
+                <dd>
+                    @*@Html.DisplayFor(model => model.FirstName)*@
+                </dd>
+                <dt>
+                    Adres mailowy
+                </dt>
+                <dd>
+                    przykładowyadres@outlook.com
+                    @*  @Html.DisplayFor(model => model.Mail)*@
+                </dd>
+                <dt>
+                    Nazwa użytkownika
+                </dt>
+                <dd>
+                    @* @Html.DisplayFor(model => model.UserName)*@
+                </dd>
+                <dt>
+                    Hasło
+                </dt>
+                <dd>
+                    @* @Html.DisplayFor(model => model.Password)*@
+                </dd>
+                <dt>
+                    Dołączył do nas
+                </dt>
+                <dd>
+                    @*  @Html.DisplayFor(model => model.AddedTimeString)*@
+                </dd>
+
+            </dl>
+        </div>
+        <div class="down">
+
+            @Html.Partial("Edit")
+
+        </div>
+        @Html.ActionLink("Wróć", "Index", "Moderator")
+
+    </div>
+</div>

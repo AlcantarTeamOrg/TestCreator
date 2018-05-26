@@ -155,6 +155,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Controllers\OdpowiedzsController.cs" />
     <Compile Include="Controllers\PytaniasController.cs" />
     <Compile Include="Controllers\StanowiskasController.cs" />
@@ -431,6 +432,11 @@
     <Content Include="Views\Pytanias\Scale.cshtml" />
     <Content Include="Views\Pytanias\Number.cshtml" />
     <Content Include="Views\Pytanias\Test.cshtml" />
+    <Content Include="Views\Moderator\Index.cshtml" />
+    <Content Include="Views\Moderator\Create.cshtml" />
+    <Content Include="Views\Moderator\Delete.cshtml" />
+    <Content Include="Views\Moderator\Details.cshtml" />
+    <Content Include="Views\Moderator\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

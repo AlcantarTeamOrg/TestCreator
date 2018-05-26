@@ -1,0 +1,57 @@
+﻿
+
+<style>
+    div.main {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    div.main2 {
+        width: 700px;
+    }
+</style>
+
+<div class="main">
+    <div class="main2">
+        <button class="btn-outline">@Html.ActionLink("Dodaj redaktora", "Create", "Moderator") </button>
+
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        Imię
+                    </th>
+                    <th>
+                        Adres mailowy
+                    </th>
+                    <th>
+                        Nazwa użytkownika
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var item in Model)*@
+
+                <tr class="userTableRow">
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.FirstName)*@
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.Mail)*@
+                    </td>
+                    <td>
+                        @* @Html.DisplayFor(modelItem => item.UserName)*@
+                    </td>
+                    <td>
+                        @Html.ActionLink("Pokaż szczegóły", "Details", "Moderator")
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
