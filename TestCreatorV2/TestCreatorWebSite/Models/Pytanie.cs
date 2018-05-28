@@ -14,16 +14,11 @@ namespace TestCreatorWebSite.Models
     
     public class Pytanie
     {
-        
-        
-    
         public int id_pytanie { get; set; }
         public string pytanie1 { get; set; }
         public string odpowiedz { get; set; }
         public bool typ { get; set; }
         public bool isvisible { get; set; }
         public int id_test { get; set; }
-    
-        
     }
 }

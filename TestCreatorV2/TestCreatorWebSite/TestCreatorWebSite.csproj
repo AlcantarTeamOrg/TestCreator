@@ -194,11 +194,14 @@
     <Compile Include="Helpers\UserSecurity.cs" />
     <Compile Include="Models\NewUser.cs" />
     <Compile Include="Models\Odpowiedz.cs" />
+    <Compile Include="Models\OdpowiedzCustom.cs" />
     <Compile Include="Models\Pozycje.cs" />
+    <Compile Include="Models\PytaniaCustom.cs" />
     <Compile Include="Models\Pytanie.cs" />
     <Compile Include="Models\Rola.cs" />
     <Compile Include="Models\Stanowisko.cs" />
     <Compile Include="Models\Test.cs" />
+    <Compile Include="Models\TestCustom.cs" />
     <Compile Include="Models\TestUser.cs" />
     <Compile Include="Models\Uzytkownik.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -410,7 +413,6 @@
     <Content Include="Views\Shared\_LoginForm.cshtml" />
     <Content Include="Views\Shared\_RegistryModal.cshtml" />
     <Content Include="Views\Shared\_UpdateUserModal.cshtml" />
-    <Content Include="Views\Testies\Index.cshtml" />
     <Content Include="Views\Testies\Create.cshtml" />
     <Content Include="Views\Testies\Details.cshtml" />
     <Content Include="Views\Testies\Edit.cshtml" />
@@ -437,6 +439,9 @@
     <Content Include="Views\Moderator\Delete.cshtml" />
     <Content Include="Views\Moderator\Details.cshtml" />
     <Content Include="Views\Moderator\Edit.cshtml" />
+    <Content Include="Views\Testies\DetailsAdd.cshtml" />
+    <Content Include="Views\Testies\Index.cshtml" />
+    <Content Include="Views\Testies\DetailsUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

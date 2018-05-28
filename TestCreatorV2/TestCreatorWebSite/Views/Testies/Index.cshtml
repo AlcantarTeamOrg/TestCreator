@@ -42,8 +42,9 @@
             @Html.DisplayFor(modelItem => item.Stanowiska.nazwa_stanowiska)
         </td>
         <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id=item.id_test }) |
-            @Html.ActionLink("Detale", "Details", new { id=item.id_test }) |
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.id_test }) |
+            @Html.ActionLink("Detale", "Details", new { id = item.id_test }) |
+            @Html.ActionLink("DetaleAdd", "DetailsAdd", new { id = item.id_test })
         </td>
     </tr>
 }
