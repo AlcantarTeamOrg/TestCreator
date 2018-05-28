@@ -437,6 +437,8 @@
     <Content Include="Views\Moderator\Delete.cshtml" />
     <Content Include="Views\Moderator\Details.cshtml" />
     <Content Include="Views\Moderator\Edit.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Shared\_LoginModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
