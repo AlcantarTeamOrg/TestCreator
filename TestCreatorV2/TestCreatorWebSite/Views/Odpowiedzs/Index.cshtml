@@ -1,46 +1,56 @@
 ﻿@model IEnumerable<TestCreatorWebSite.Data.Odpowiedz>
 
-<p>
-    @Html.ActionLink("Dodaj nowy", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Treść Odpowiedzi
-        </th>
-        <th>
-            Czy jest widoczne
-        </th>
-        <th>
-            Czy jest poprawna
-        </th>
-        <th>
-            Treść pytania
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.tresc_odpowiedzi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.is_visible)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dobra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pytania.tresc_pytania)
-        </td>
-        <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id=item.id_odpowiedz }) |
-            @Html.ActionLink("Detale", "Details", new { id=item.id_odpowiedz }) 
-            @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_odpowiedz })*@
-        </td>
-    </tr>
-}
+<div class="main">
+    <div class="menu">
+        <div class="menu-row">@Html.ActionLink("Dodaj odpowiedź", "Create", null, new { @class = "btn btn-default" })</div>
+    </div>
+    <div class="center-box">
+        <h2>Lista odpowiedzi</h2>
+        <h4>Poniższa lista zawiera możliwe odpowiedzi dla pytań zamkniętych</h4>
+        <hr />
+        <table class="table">
+            <tr>
+                <th>
+                    Treść odpowiedzi
+                </th>
+                <th>
+                    Widoczność
+                </th>
+                <th>
+                    Poprawność
+                </th>
+                <th>
+                    Treść pytania
+                </th>
+                <th></th>
+            </tr>
 
-</table>
+            @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tresc_odpowiedzi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.is_visible)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dobra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pytania.tresc_pytania)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.id_odpowiedz }) |
+                    @Html.ActionLink("Detale", "Details", new { id = item.id_odpowiedz })
+                    @*|
+                    @Html.ActionLink("Delete", "Delete", new { id=item.id_odpowiedz })*@
+                </td>
+            </tr>
+    }
+
+        </table>
+    </div>
+</div>
+
