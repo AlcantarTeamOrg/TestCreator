@@ -2,7 +2,8 @@
 
 <div class="main">
     <div class="menu">
-        @Html.ActionLink("Dodaj nowe", "Create", null, new { @class = "btn btn-default" })
+        <div class="menu-row">@Html.ActionLink("Nowe pytanie", "Create", null, new { @class = "btn btn-default btn-lg" })</div>
+        <div class="menu-row"> @Html.ActionLink("Odpowiedzi", "Index", "Odpowiedzs", new { area = "" }, new { @class = "btn btn-default btn-lg" })</div>
     </div>
     <div class="center-box">
         <h3>Lista pytań</h3>
@@ -55,14 +56,6 @@
     </div>
 </div>
 
-<div class="main">
-    <div class="main_up"><button type="button" class="btn btn-dark"></button></div>
-    <div class="main_down">
-        <div class="main_box">
-            
-        </div>
-    </div>
-</div>
 
 
 
