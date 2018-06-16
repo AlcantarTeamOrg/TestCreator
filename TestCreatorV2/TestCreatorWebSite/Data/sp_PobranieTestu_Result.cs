@@ -10,24 +10,16 @@
 namespace TestCreatorWebSite.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Odpowiedz
+    public partial class sp_PobranieTestu_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Odpowiedz()
-        {
-            this.Skala = new HashSet<Skala>();
-        }
-    
+        public string nazwa { get; set; }
+        public string nazwa_stanowiska { get; set; }
+        public string tresc_pytania { get; set; }
         public int id_odpowiedz { get; set; }
         public int id_pytanie { get; set; }
         public string tresc_odpowiedzi { get; set; }
-        public bool is_visible { get; set; }
-        public bool dobra { get; set; }
-    
-        public virtual Pytania Pytania { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Skala> Skala { get; set; }
+        public decimal minimum { get; set; }
+        public decimal maksimum { get; set; }
     }
 }

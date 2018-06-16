@@ -25,9 +25,11 @@ namespace TestCreatorWebSite.Data
         public Nullable<System.DateTime> data_stworzenia { get; set; }
         public bool is_visible { get; set; }
         public Nullable<int> id_stanowisko { get; set; }
+        public int id_autor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pytania> Pytania { get; set; }
         public virtual Stanowiska Stanowiska { get; set; }
+        public virtual Uzytkownicy Uzytkownicy { get; set; }
     }
 }

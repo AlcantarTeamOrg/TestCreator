@@ -4,9 +4,13 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using TestCreatorWebSite.Data;
+using TestCreatorWebSite.Helpers;
+using TestCreatorWebSite.Models;
 
 namespace TestCreatorWebSite.Controllers
 {
@@ -23,6 +27,21 @@ namespace TestCreatorWebSite.Controllers
 
         // GET: Testies/Details/5
         public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Testy testy = db.Testy.Find(id);
+            if (testy == null)
+            {
+                return HttpNotFound();
+            }
+            return View(testy);
+        }
+
+        // GET: Testies/Details/5
+        public ActionResult DetailsFull(int? id)
         {
             if (id == null)
             {
@@ -54,6 +73,9 @@ namespace TestCreatorWebSite.Controllers
             {
                 testy.data_stworzenia = DateTime.Now;
                 testy.is_visible = false;
+                HttpResponseMessage httpResponseMessage2 = GlobalVariables.WebApiClient.GetAsync("UserLogin").Result;
+                var user = httpResponseMessage2.Content.ReadAsAsync<Uzytkownik>().Result;
+                testy.id_autor = 1;
                 db.Testy.Add(testy);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -94,6 +116,69 @@ namespace TestCreatorWebSite.Controllers
             }
             ViewBag.id_stanowisko = new SelectList(db.Stanowiska, "id_stanowisko", "nazwa_stanowiska", testy.id_stanowisko);
             return View(testy);
+        }
+
+        [HttpGet]
+        public string GetDetails(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            int id1 = (int)id;
+            List<Pytania> pytania = db.Pytania
+                                        .Where(u => u.id_test == id1
+                                                && u.is_visible == true)
+                                        .ToList();
+            if (pytania == null)
+            {
+                return null;
+            }
+            string s = Json(pytania).ToString();
+            List<PytaniaCustom> p = new List<PytaniaCustom>();
+            foreach (var v in pytania)
+            {
+                PytaniaCustom pc = new PytaniaCustom();
+                pc.id_pytanie = v.id_pytanie;
+                pc.id_test = v.id_test;
+                pc.is_visible = v.is_visible;
+                pc.tresc_pytania = v.tresc_pytania;
+                pc.type = v.typ;
+                foreach (var v1 in v.Odpowiedz)
+                {
+                    Models.Odpowiedz odp = new Models.Odpowiedz();
+                    odp.dobra = v1.dobra;
+                    odp.id_odpowiedz = v1.id_odpowiedz;
+                    odp.id_pytanie = v1.id_pytanie;
+                    odp.is_visible = v1.is_visible;
+                    odp.tresc_odpowiedzi = v1.tresc_odpowiedzi;
+
+                    if (v1.is_visible == true)
+                    {
+                        if (pc.Odpowiedz == null)
+                        {
+                            pc.Odpowiedz = new List<Models.Odpowiedz>();
+                        }
+                        pc.Odpowiedz.Add(odp);
+                    }
+
+                }
+                //if (pc.Odpowiedz.Count == 1)
+                //{
+                //    pc.type = 1; //1- otwarte
+                //}
+                //else if (pc.Odpowiedz.Where(u => u.dobra == true).Count() > 1)
+                //{
+                //    pc.type = 3; // 3- wielokrotnego wyboru
+                //}
+                //else
+                //{
+                //    pc.type = 2; //2-jednokrotnego wyboru
+                //}
+                p.Add(pc);
+            }
+
+            return new JavaScriptSerializer().Serialize(p);  //Json(new { foo = "bar", baz = "Blech" });//pytania, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Testies/Delete/5

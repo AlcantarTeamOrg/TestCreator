@@ -17,8 +17,25 @@
     <Property Name="id_pytanie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="tresc_pytania" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="is_visible" Type="bit" Nullable="false" />
-    <Property Name="otwarte" Type="bit" Nullable="false" />
     <Property Name="id_test" Type="int" Nullable="false" />
+    <Property Name="typ" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id_rola" />
+    </Key>
+    <Property Name="id_rola" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nazwa" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="is_visible" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Skala">
+    <Key>
+      <PropertyRef Name="is_skala" />
+    </Key>
+    <Property Name="is_skala" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="minimum" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="maksimum" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="id_odpowiedz" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Stanowiska">
     <Key>
@@ -28,17 +45,50 @@
     <Property Name="nazwa_stanowiska" Type="nchar" MaxLength="30" Nullable="false" />
     <Property Name="is_visible" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="Testy">
     <Key>
       <PropertyRef Name="id_test" />
     </Key>
     <Property Name="id_test" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nazwa" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="nazwa" Type="nchar" MaxLength="45" Nullable="false" />
     <Property Name="data_stworzenia" Type="date" />
     <Property Name="is_visible" Type="bit" Nullable="false" />
     <Property Name="id_stanowisko" Type="int" />
+    <Property Name="id_autor" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK__Odpowiedz__id_py__787EE5A0">
+  <EntityType Name="Uzytkownicy">
+    <Key>
+      <PropertyRef Name="id_uzytkownik" />
+    </Key>
+    <Property Name="id_uzytkownik" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="haslo" Type="nchar" MaxLength="255" Nullable="false" />
+    <Property Name="is_visible" Type="bit" Nullable="false" />
+    <Property Name="id_rola" Type="int" />
+    <Property Name="data_dodania" Type="datetime" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="wynik">
+    <Key>
+      <PropertyRef Name="id_wynik" />
+    </Key>
+    <Property Name="id_wynik" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="wynik" Type="real" Nullable="false" />
+    <Property Name="id_test" Type="int" Nullable="false" />
+    <Property Name="id_uzytkownik" Type="int" Nullable="false" />
+    <Property Name="data_sprawdzenia" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Odpowiedz__id_py__2A164134">
     <End Role="Pytania" Type="Self.Pytania" Multiplicity="1" />
     <End Role="Odpowiedz" Type="Self.Odpowiedz" Multiplicity="*" />
     <ReferentialConstraint>
@@ -50,7 +100,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Pytania__id_test__797309D9">
+  <Association Name="FK__Pytania__id_test__2FCF1A8A">
     <End Role="Testy" Type="Self.Testy" Multiplicity="1" />
     <End Role="Pytania" Type="Self.Pytania" Multiplicity="*" />
     <ReferentialConstraint>
@@ -59,6 +109,30 @@
       </Principal>
       <Dependent Role="Pytania">
         <PropertyRef Name="id_test" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Skala__id_odpowi__2B0A656D">
+    <End Role="Odpowiedz" Type="Self.Odpowiedz" Multiplicity="1" />
+    <End Role="Skala" Type="Self.Skala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Odpowiedz">
+        <PropertyRef Name="id_odpowiedz" />
+      </Principal>
+      <Dependent Role="Skala">
+        <PropertyRef Name="id_odpowiedz" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Testy_Autorzy">
+    <End Role="Uzytkownicy" Type="Self.Uzytkownicy" Multiplicity="1" />
+    <End Role="Testy" Type="Self.Testy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uzytkownicy">
+        <PropertyRef Name="id_uzytkownik" />
+      </Principal>
+      <Dependent Role="Testy">
+        <PropertyRef Name="id_autor" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -74,22 +148,114 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Uzytkownicy_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Uzytkownicy" Type="Self.Uzytkownicy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id_rola" />
+      </Principal>
+      <Dependent Role="Uzytkownicy">
+        <PropertyRef Name="id_rola" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="DodawanieUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="nchar" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="haslo" Type="nchar" Mode="In" />
+    <Parameter Name="id_rola" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sc_deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="sc_getAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_AktualizacjaUzytkownika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idUzytkownika" Type="bigint" Mode="In" />
+    <Parameter Name="login" Type="nchar" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="haslo" Type="nchar" Mode="In" />
+    <Parameter Name="id_rola" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_DodawanieTestu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_test" Type="bigint" Mode="In" />
+    <Parameter Name="nazwa" Type="nchar" Mode="In" />
+    <Parameter Name="id_stanowisko" Type="bigint" Mode="In" />
+    <Parameter Name="id_autor" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_PobranieTestu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_UsuwanieTestu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_test" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="testyAutora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="bigint" Mode="In" />
+  </Function>
   <EntityContainer Name="TestCreatorModelStoreContainer">
     <EntitySet Name="Odpowiedz" EntityType="Self.Odpowiedz" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pytania" EntityType="Self.Pytania" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Skala" EntityType="Self.Skala" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Stanowiska" EntityType="Self.Stanowiska" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Testy" EntityType="Self.Testy" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Odpowiedz__id_py__787EE5A0" Association="Self.FK__Odpowiedz__id_py__787EE5A0">
+    <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="wynik" EntityType="Self.wynik" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Odpowiedz__id_py__2A164134" Association="Self.FK__Odpowiedz__id_py__2A164134">
       <End Role="Pytania" EntitySet="Pytania" />
       <End Role="Odpowiedz" EntitySet="Odpowiedz" />
     </AssociationSet>
-    <AssociationSet Name="FK__Pytania__id_test__797309D9" Association="Self.FK__Pytania__id_test__797309D9">
+    <AssociationSet Name="FK__Pytania__id_test__2FCF1A8A" Association="Self.FK__Pytania__id_test__2FCF1A8A">
       <End Role="Testy" EntitySet="Testy" />
       <End Role="Pytania" EntitySet="Pytania" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Skala__id_odpowi__2B0A656D" Association="Self.FK__Skala__id_odpowi__2B0A656D">
+      <End Role="Odpowiedz" EntitySet="Odpowiedz" />
+      <End Role="Skala" EntitySet="Skala" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Testy_Autorzy" Association="Self.FK_Testy_Autorzy">
+      <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
+      <End Role="Testy" EntitySet="Testy" />
     </AssociationSet>
     <AssociationSet Name="FK_Testy_Stanowiska" Association="Self.FK_Testy_Stanowiska">
       <End Role="Stanowiska" EntitySet="Stanowiska" />
       <End Role="Testy" EntitySet="Testy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Uzytkownicy_Role" Association="Self.FK_Uzytkownicy_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Uzytkownicy" EntitySet="Uzytkownicy" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

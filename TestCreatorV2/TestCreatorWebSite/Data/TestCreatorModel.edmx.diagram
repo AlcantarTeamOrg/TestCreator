@@ -12,6 +12,14 @@
         <AssociationConnector Association="TestCreatorModel.FK__Odpowiedz__id_py__787EE5A0" ManuallyRouted="false" />
         <AssociationConnector Association="TestCreatorModel.FK__Pytania__id_test__797309D9" ManuallyRouted="false" />
         <AssociationConnector Association="TestCreatorModel.FK_Testy_Stanowiska" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TestCreatorModel.Role" Width="1.5" PointX="0.75" PointY="9.5" />
+        <EntityTypeShape EntityType="TestCreatorModel.Skala" Width="1.5" PointX="9.75" PointY="1.25" />
+        <EntityTypeShape EntityType="TestCreatorModel.sysdiagrams" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="TestCreatorModel.Uzytkownicy" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="TestCreatorModel.wynik" Width="1.5" PointX="5.375" PointY="4.75" />
+        <AssociationConnector Association="TestCreatorModel.FK__Skala__id_odpowi__2B0A656D" />
+        <AssociationConnector Association="TestCreatorModel.FK_Uzytkownicy_Role" />
+        <AssociationConnector Association="TestCreatorModel.FK_Testy_Autorzy" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

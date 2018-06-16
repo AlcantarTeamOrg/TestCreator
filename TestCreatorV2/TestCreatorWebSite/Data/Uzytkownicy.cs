@@ -12,22 +12,24 @@ namespace TestCreatorWebSite.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Odpowiedz
+    public partial class Uzytkownicy
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Odpowiedz()
+        public Uzytkownicy()
         {
-            this.Skala = new HashSet<Skala>();
+            this.Testy = new HashSet<Testy>();
         }
     
-        public int id_odpowiedz { get; set; }
-        public int id_pytanie { get; set; }
-        public string tresc_odpowiedzi { get; set; }
+        public int id_uzytkownik { get; set; }
+        public string login { get; set; }
+        public string haslo { get; set; }
         public bool is_visible { get; set; }
-        public bool dobra { get; set; }
+        public Nullable<int> id_rola { get; set; }
+        public Nullable<System.DateTime> data_dodania { get; set; }
+        public string name { get; set; }
     
-        public virtual Pytania Pytania { get; set; }
+        public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Skala> Skala { get; set; }
+        public virtual ICollection<Testy> Testy { get; set; }
     }
 }

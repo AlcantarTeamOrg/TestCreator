@@ -1,0 +1,159 @@
+﻿@model TestCreatorWebSite.Data.Testy
+
+@{
+    Layout = null;
+}
+
+@Scripts.Render("~/Scripts/jquery-3.1.1.js")
+<style>
+    #bodyRow {
+        margin-left: 65px;
+    }
+</style>
+<script type="text/javascript">
+    var Details = {
+        bildTest: function () {
+            var id = parseInt($('#idTest').text());
+            $.ajax({
+                url: "../GetDetails",
+                type: 'GET',
+                data: { id: id },
+                async: true,
+                dataType: "json",
+                success: function (result) {
+                    if (result != 0) {
+                        console.log(result);
+                        for (var i = 0; i < result.length; i++) {
+                            var pytanie = result[i];
+                            if (pytanie.type == 4) {
+                                var glownyDiv = $("<div class='row'></div>");
+                                $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                $(glownyDiv).append('<textarea class="form-control" id="exampleFormControlTextarea' +
+                                    pytanie.Odpowiedz[0].id_odpowiedz + '" rows="3" disabled>' +
+                                    pytanie.Odpowiedz[0].tresc_odpowiedzi + '</textarea>');
+
+                                $(glownyDiv).append('<hr>');
+                                $('#bodyRow').append(glownyDiv);
+
+                            }
+                            else if (pytanie.type == 1) {
+                                var glownyDiv = $("<div class='row'></div>");
+                                $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                for (var j = 0; j < pytanie.Odpowiedz.length; j++) {
+                                    var odpowiedz = pytanie.Odpowiedz[j];
+                                    var checkList = $("<div class='form - check'></div>");
+                                    if (odpowiedz.dobra == true) {
+                                        checkList.append('<input class="form-check-input" checked type="radio" value="option1" id="exampleRadios' +
+                                            odpowiedz.id_odpowiedz + '" disabled>');
+                                    }
+                                    else {
+                                        checkList.append('<input class="form-check-input" type="radio" value="option2" id="exampleRadios' +
+                                            odpowiedz.id_odpowiedz + '" disabled>');
+                                    }
+
+                                    checkList.append(' <label class="form-check-label" for="exampleRadios' +
+                                        odpowiedz.id_odpowiedz + '">' +
+                                        odpowiedz.tresc_odpowiedzi + '</label >');
+                                    $(glownyDiv).append(checkList);
+                                    $('#bodyRow').append(glownyDiv);
+                                }
+                                $('#bodyRow').append('<hr>');
+                            }
+                            else if (pytanie.type == 2) {
+                                var glownyDiv = $("<div class='row'></div>");
+                                $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                for (var j = 0; j < pytanie.Odpowiedz.length; j++) {
+                                    var odpowiedz = pytanie.Odpowiedz[j];
+                                    var checkList = $("<div class='form - check'></div>");
+                                    if (odpowiedz.dobra == true) {
+                                        checkList.append('<input class="form-check-input" checked="checked" type="checkbox" value="" id="defaultCheck' +
+                                            odpowiedz.id_odpowiedz + '" disabled>');
+                                    }
+                                    else {
+                                        checkList.append('<input class="form-check-input" type="checkbox" value="" id="defaultCheck' +
+                                            odpowiedz.id_odpowiedz + '" disabled>');
+                                    }
+
+                                    checkList.append(' <label class="form-check-label" for="defaultCheck' +
+                                        odpowiedz.id_odpowiedz + '">' +
+                                        odpowiedz.tresc_odpowiedzi + '</label >');
+                                    $(glownyDiv).append(checkList);
+
+                                    $('#bodyRow').append(glownyDiv);
+                                }
+                                $('#bodyRow').append('<hr>');
+                            }
+                            else if (pytanie.type == 3) {
+                                var glownyDiv = $("<div class='row'></div>");
+                                $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                var glownyDiv = $("<div class='row'></div>");
+                                $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                $(glownyDiv).append('<select disabled>' +
+                                    '<option value="odp" >' + pytanie.Odpowiedz[0].tresc_odpowiedzi + '</option >' +
+                                    '</select >');
+
+                                $(glownyDiv).append('<hr>');
+                                $('#bodyRow').append(glownyDiv);
+                            }
+                        }
+                    } else {
+                        //swal({
+                        //    title: "Wystąpił błąd podczas pobierania danych",
+                        //    type: "error",
+                        //    showConfirmButton: true
+                        //})
+                    }
+                },
+                error: function () {
+                    //swal({
+                    //    title: "Problem z połączeniem",
+                    //    type: "error",
+                    //    showConfirmButton: true
+                    //})
+                }
+            });
+        },
+    }
+
+    //jQuery(function () {
+    //    alert("hello world");
+    //});
+
+
+    $(document).ready(function () {
+        Details.bildTest();
+    });
+
+</script>
+<div>
+    <h4>Test:</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.nazwa)*@
+            Nazwa
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nazwa)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.data_stworzenia)*@
+            Data stworzenia
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.data_stworzenia)
+        </dd>
+        <dd id="idTest" style="display: none;">
+            @Html.DisplayFor(model => model.id_test)
+        </dd>
+    </dl>
+    <hr />
+    <div class="row" id="bodyRow">
+
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -160,13 +160,31 @@
     <Compile Include="Controllers\PytaniasController.cs" />
     <Compile Include="Controllers\StanowiskasController.cs" />
     <Compile Include="Controllers\TestiesController.cs" />
+    <Compile Include="Data\DodawanieUzytkownika_Result.cs">
+      <DependentUpon>TestCreatorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Odpowiedz.cs">
       <DependentUpon>TestCreatorModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Pytania.cs">
       <DependentUpon>TestCreatorModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Role.cs">
+      <DependentUpon>TestCreatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sc_getAllUsers_Result.cs">
+      <DependentUpon>TestCreatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Skala.cs">
+      <DependentUpon>TestCreatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sp_PobranieTestu_Result.cs">
+      <DependentUpon>TestCreatorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Stanowiska.cs">
+      <DependentUpon>TestCreatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sysdiagrams.cs">
       <DependentUpon>TestCreatorModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\TestCreatorModel.Context.cs">
@@ -187,6 +205,15 @@
     <Compile Include="Data\Testy.cs">
       <DependentUpon>TestCreatorModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\testyAutora_Result.cs">
+      <DependentUpon>TestCreatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Uzytkownicy.cs">
+      <DependentUpon>TestCreatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\wynik.cs">
+      <DependentUpon>TestCreatorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,11 +221,14 @@
     <Compile Include="Helpers\UserSecurity.cs" />
     <Compile Include="Models\NewUser.cs" />
     <Compile Include="Models\Odpowiedz.cs" />
+    <Compile Include="Models\OdpowiedzCustom.cs" />
     <Compile Include="Models\Pozycje.cs" />
+    <Compile Include="Models\PytaniaCustom.cs" />
     <Compile Include="Models\Pytanie.cs" />
     <Compile Include="Models\Rola.cs" />
     <Compile Include="Models\Stanowisko.cs" />
     <Compile Include="Models\Test.cs" />
+    <Compile Include="Models\TestCustom.cs" />
     <Compile Include="Models\TestUser.cs" />
     <Compile Include="Models\Uzytkownik.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -441,6 +471,8 @@
     <Content Include="Views\Moderator\Edit.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Shared\_LoginModal.cshtml" />
+    <Content Include="Views\Testies\DetailsAdd.cshtml" />
+    <Content Include="Views\Testies\DetailsFull.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

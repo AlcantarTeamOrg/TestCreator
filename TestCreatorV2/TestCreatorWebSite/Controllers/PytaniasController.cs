@@ -47,7 +47,7 @@ namespace TestCreatorWebSite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_pytanie,tresc_pytania,is_visible,otwarte,id_test")] Pytania pytania)
+        public ActionResult Create([Bind(Include = "id_pytanie,tresc_pytania,is_visible,id_test")] Pytania pytania)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace TestCreatorWebSite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_pytanie,tresc_pytania,is_visible,otwarte,id_test")] Pytania pytania)
+        public ActionResult Edit([Bind(Include = "id_pytanie,tresc_pytania,is_visible,id_test")] Pytania pytania)
         {
             if (ModelState.IsValid)
             {
