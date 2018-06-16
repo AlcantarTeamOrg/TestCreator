@@ -1,49 +1,52 @@
 ﻿@model TestCreatorWebSite.Data.Pytania
 
+<div class="main">
+    <div class="menu">
+        <div class="menu-row">@Html.ActionLink("Edytuj", "Edit", new { id = Model.id_pytanie }, new { @class = "btn btn-default" })</div>
+        <div class="menu-row">@Html.ActionLink("Wstecz", "Index", null, new { @class = "btn btn-default" })</div>
+    </div>
+    <div class="center-box">
+        <div>
+            <h4>Pytanie</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.tresc_pytania)*@
+                    Treść pytania
+                </dt>
 
-<div>
-    <h4>Pytania</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @*@Html.DisplayNameFor(model => model.tresc_pytania)*@
-            Treść pytania
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.tresc_pytania)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.tresc_pytania)
-        </dd>
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.is_visible)*@
+                    Widoczność
+                </dt>
 
-        <dt>
-            @*@Html.DisplayNameFor(model => model.is_visible)*@
-            Widoczność
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.is_visible)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.is_visible)
-        </dd>
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.otwarte)*@
+                    Otwarte
+                </dt>
 
-        <dt>
-            @*@Html.DisplayNameFor(model => model.otwarte)*@
-            Otwarte
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.otwarte)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.otwarte)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Testy.nazwa)
+                    Nazwa testu
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Testy.nazwa)
-            Nazwa testu
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Testy.nazwa)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Testy.nazwa)
-        </dd>
-
-    </dl>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id_pytanie }) |
-    @Html.ActionLink("Wstecz", "Index")
-</p>

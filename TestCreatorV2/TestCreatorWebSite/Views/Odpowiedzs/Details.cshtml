@@ -1,48 +1,52 @@
 ﻿@model TestCreatorWebSite.Data.Odpowiedz
 
-<div>
-    <h4>Odpowiedz</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @*@Html.DisplayNameFor(model => model.tresc_odpowiedzi)*@
-            Tresć odpowiedzi
-        </dt>
+<div class="main">
+    <div class="menu">
+        <div class="menu-row">@Html.ActionLink("Edytuj", "Edit", new { id = Model.id_odpowiedz }, new { @class = "btn btn-default" })</div>
+        <div class="menu-row">@Html.ActionLink("Wstecz", "Index", null, new { @class = "btn btn-default" })</div>
+    </div>
+    <div class="center-box">
+        <div>
+            <h4>Odpowiedź</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.tresc_odpowiedzi)*@
+                    Tresć odpowiedzi
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.tresc_odpowiedzi)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.tresc_odpowiedzi)
+                </dd>
 
-        <dt>
-            @*@Html.DisplayNameFor(model => model.is_visible)*@
-            Widoczność
-        </dt>
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.is_visible)*@
+                    Widoczność
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.is_visible)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.is_visible)
+                </dd>
 
-        <dt>
-            @*@Html.DisplayNameFor(model => model.dobra)*@
-            Poprawność
-        </dt>
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.dobra)*@
+                    Poprawność
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.dobra)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.dobra)
+                </dd>
 
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Pytania.tresc_pytania)*@
-            Pytanie
-        </dt>
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.Pytania.tresc_pytania)*@
+                    Pytanie
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Pytania.tresc_pytania)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Pytania.tresc_pytania)
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id_odpowiedz }) |
-    @Html.ActionLink("Wstecz", "Index")
-</p>
