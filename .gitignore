@@ -49,3 +49,4 @@ _ReSharper*/
 *.tlb
 *.svclog
 *.orig
+TestCreatorV2/TestCreatorWebSite/Views/Testies/DetailsAdd.cshtml
