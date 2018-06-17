@@ -1,0 +1,297 @@
+﻿@model TestCreatorWebSite.Data.Testy
+
+@{
+    Layout = null;
+}
+@Scripts.Render("~/Scripts/jquery-3.1.1.js")
+@Scripts.Render("~/Scripts/bootstrap.js")
+@Styles.Render("~/Content/bootstrap.css")
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateFull</title>
+    <style>
+        #bodyRow {
+            margin-left: 65px;
+        }
+    </style>
+    <script type="text/javascript">
+        var Create = {
+            isFirstQuestion: true,
+            questionCount: 1,
+
+            createQuestion: function () {
+                var glownyDiv = $('<div class="col-md-offset-2 col-md-10" id="groupQ' + Create.questionCount + '"></div >');
+                $(glownyDiv).append('<h2>Tresć pytania:</h2>');
+                $(glownyDiv).append('<input class="form-control text-box single-line" style="margin-bottom: 10px;" id="txtQuestion_' +
+                    Create.questionCount + '" type="text">');
+                $(glownyDiv).append('<select class="form-control"' +
+                    'id="selectQt' + Create.questionCount + '"' +
+                    ' onchange="Create.selectQuestionType(' + Create.questionCount + ')" > ' +
+                    '<option disabled selected value>Wybierz typ</option>' +
+                    '<option value="1" >Jednokrotnego wyboru</option >' +
+                    '<option value="2" >Wielokrotnego wyboru</option >' +
+                    '<option value="3" >Liczbowy</option >' +
+                    '<option value="4" >Otwarte</option >' +
+                    '<option value="5" >Scala</option >' +
+                    '</select >');
+                Create.questionCount++;
+                $(glownyDiv).append('<hr>');
+                $('#questionsBody').append(glownyDiv);
+            },
+
+            selectQuestionType: function (questionNumber) {
+                var questionnType = $('#selectQt' + questionNumber).val();
+                var glownyDiv;
+                if ($('#rowQuestionAns' + questionNumber).html()) {
+                    $('#rowQuestionAns' + questionNumber).html('');
+                    glownyDiv = $('#rowQuestionAns' + questionNumber);
+                }
+                else {
+                    glownyDiv = $("<div class='' id='rowQuestionAns" + questionNumber + "'></div>");
+                }
+                //$('#rowQuestionAns' + questionNumber).html('');
+                //glownyDiv = $('#rowQuestionAns' + questionNumber);//$("<div class='row' id='rowQuestionAns" + questionNumber + "'></div>");
+
+                if (questionnType == 1) {
+
+                    var checkList = $("<div class='form-check'></div>");
+                    var row = $("<div class='row' style='padding-bottom: 10px;'></div>");
+                    row.append('<input class="form-check-input" type="radio" name="radio' + questionNumber + '" value="" id="defaultCheck1_' +
+                        questionNumber + '">');
+                    row.append('<input class="form-control text-box single-line" style="width: 98%; float: right;" for="defaultCheck1_' +
+                        questionNumber + '" type="text">');
+
+                    checkList.append(row);
+                    row = $("<div class='row' style='padding-bottom: 10px;'></div>");
+                    row.append('<input class="form-check-input" type="radio" name="radio' + questionNumber + '" value="" id="defaultCheck2_' +
+                        questionNumber + '">');
+                    row.append('<input class="form-control text-box single-line" style="width: 98%; float: right;" for="defaultCheck2_' +
+                        questionNumber + '" type="text">');
+                    checkList.append(row);
+
+                    row = $("<div class='row' style='padding-bottom: 10px;'></div>");
+                    row.append('<input class="form-check-input" type="radio" name="radio' + questionNumber + '" value="" id="defaultCheck3_' +
+                        questionNumber + '">');
+                    row.append('<input class="form-control text-box single-line" style="width: 98%; float: right;" for="defaultCheck3_' +
+                        questionNumber + '" type="text">');
+                    checkList.append(row);
+                    $(glownyDiv).append(checkList);
+                    $('#groupQ' + questionNumber).append(glownyDiv);
+                }
+                else if (questionnType == 2) {
+
+                    var checkList = $("<div class='form-check'></div>");
+                    var row = $("<div class='row' style='padding-bottom: 10px;'></div>");
+                    row.append('<input class="form-check-input" type="checkbox" name="checkbox' + questionNumber + '" value="" id="defaultCheck1_' +
+                        questionNumber + '">');
+                    row.append('<input class="form-control text-box single-line" style="width: 98%; float: right;" for="defaultCheck1_' +
+                        questionNumber + '" type="text">');
+
+                    checkList.append(row);
+                    row = $("<div class='row' style='padding-bottom: 10px;'></div>");
+                    row.append('<input class="form-check-input" type="checkbox" name="checkbox' + questionNumber + '" value="" id="defaultCheck2_' +
+                        questionNumber + '">');
+                    row.append('<input class="form-control text-box single-line" style="width: 98%; float: right;" for="defaultCheck2_' +
+                        questionNumber + '" type="text">');
+                    checkList.append(row);
+
+                    row = $("<div class='row' style='padding-bottom: 10px;'></div>");
+                    row.append('<input class="form-check-input" type="checkbox" name="checkbox' + questionNumber + '" value="" id="defaultCheck3_' +
+                        questionNumber + '">');
+                    row.append('<input class="form-control text-box single-line" style="width: 98%; float: right;" for="defaultCheck3_' +
+                        questionNumber + '" type="text">');
+                    checkList.append(row);
+                    $(glownyDiv).append(checkList);
+                    $('#groupQ' + questionNumber).append(glownyDiv);
+                }
+                else if (questionnType == 3) {
+
+                    var row = $("<div class='row' style='padding-bottom: 10px;'></div>");
+                    var select = $('<select class="form-control"' +
+                        'id="selectNumber' + questionNumber + '"> ' +
+                        '</select >');
+                    for (var i = 1; i < 101; i++) {
+                        select.append('<option value="' + i + '" >' + i + '</option >');
+                    }
+                    //'<option disabled selected value>Wybierz typ</option>' +
+                    //    '<option value="1" >Jednokrotnego wyboru</option >' +
+                    //    '<option value="2" >Wielokrotnego wyboru</option >' +
+                    //    '<option value="3" >Liczbowy</option >' +
+                    //    '<option value="4" >Otwarte</option >' +
+                    //    '<option value="5" >Scala</option >' +
+                    //    '</select >');
+                    $(row).append(select);
+                    $(glownyDiv).append(select);
+                    $('#groupQ' + questionNumber).append(glownyDiv);
+                }
+                else if (questionnType == 4) {
+
+                    //var row = $("<div class='row' style='padding-bottom: 10px;'></div>");
+                    $(glownyDiv).append('<textarea class="form-control" id="txtArea' +
+                        questionNumber + '" rows="3"></textarea>');
+                    //$(glownyDiv).append(row);
+                    $('#groupQ' + questionNumber).append(glownyDiv);
+                }
+            },
+
+            saveQuestion: function () {
+                var listPytania = new Array();
+                for (var i = 1; i < Create.questionCount; i++) {
+                    var question = $('#groupQ' + i).html;
+
+                    var pytanie = {
+                        id_pytanie: 0,
+                        tresc_pytania: $('#txtQuestion_' + i).val(),
+                        is_visible: true,
+                        id_test: 0,
+                        Odpowiedz: null,
+                        typ: parseInt($('#selectQt' + i).val())
+                    }
+
+                    var listOdpowiedzi = new Array();
+
+                    if (pytanie.typ == 1) {
+                        var radios = document.getElementsByName('radio' + i);
+
+                        for (var j = 0, length = radios.length; j < length; j++) {
+                            var odpowiedz = {
+                                id_odpowiedz: 0,
+                                id_pytanie: 0,
+                                tresc_odpowiedzi: radios[j].nextElementSibling.value,
+                                is_visible: true,
+                                dobra: radios[j].checked
+                            }
+                            listOdpowiedzi[j] = odpowiedz;
+                        }
+
+                        pytanie.Odpowiedz = listOdpowiedzi;
+                    }
+                    else if (pytanie.typ == 2) {
+
+                        var radios = document.getElementsByName('checkbox' + i);
+
+                        for (var j = 0, length = radios.length; j < length; j++) {
+                            var odpowiedz = {
+                                id_odpowiedz: 0,
+                                id_pytanie: 0,
+                                tresc_odpowiedzi: radios[j].nextElementSibling.value,
+                                is_visible: true,
+                                dobra: radios[j].checked
+                            }
+                            listOdpowiedzi[j] = odpowiedz;
+                        }
+
+                        pytanie.Odpowiedz = listOdpowiedzi;
+                    }
+                    else if (pytanie.typ == 3) {
+                        var odpowiedz = {
+                            id_odpowiedz: 0,
+                            id_pytanie: 0,
+                            tresc_odpowiedzi: $('#selectNumber' + i).val(),
+                            is_visible: true,
+                            dobra: true
+                        }
+                        listOdpowiedzi[0] = odpowiedz;
+
+                        pytanie.Odpowiedz = listOdpowiedzi;
+                    }
+                    else if (pytanie.typ == 4) {
+                        var odpowiedz = {
+                            id_odpowiedz: 0,
+                            id_pytanie: 0,
+                            tresc_odpowiedzi: $('#txtArea' + i).val(),
+                            is_visible: true,
+                            dobra: true
+                        }
+                        listOdpowiedzi[0] = odpowiedz;
+
+                        pytanie.Odpowiedz = listOdpowiedzi;}
+                    else if (pytanie.typ == 5) { }
+
+                    listPytania[i - 1] = pytanie;
+
+                }
+
+
+                $.ajax({
+                    url: "/Testies/SaveTest",
+                    type: 'POST',
+                    data: {
+                        Name: $('#txtNazwa').val(),
+                        id_stanowisko: $('#id_stanowisko').val(),
+                        listPytania: listPytania
+                        //id: 1
+                    },
+                    async: true,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result);
+                    },
+                    error: function () {
+                        //swal({
+                        //    title: "Problem z połączeniem",
+                        //    type: "error",
+                        //    showConfirmButton: true
+                        //})
+                    }
+                });
+            },
+        }
+
+        $(document).ready(function () {
+            Details.bildTest();
+        });
+
+    </script>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Testy</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="control-label col-md-2" for="nazwa">Nazwa testu</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="txtNazwa" name="nazwa" type="text" value="">
+                    <span class="field-validation-valid text-danger" data-valmsg-for="nazwa" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.id_stanowisko, "id_stanowisko", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("id_stanowisko", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.id_stanowisko, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2  col-md-10">
+                    <button type="button" class="btn btn-dark" id="btnAddQuestion" onclick="Create.createQuestion()">Dodaj pytanie</button>
+                </div>
+            </div>
+            <div class="form-group" id="questionsBody">
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-dark" id="btnSaveTest" onclick="Create.saveQuestion()">zapisz</button>
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

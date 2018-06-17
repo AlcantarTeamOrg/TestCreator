@@ -62,6 +62,12 @@ namespace TestCreatorWebSite.Controllers
             return View();
         }
 
+        public ActionResult CreateFull()
+        {
+            ViewBag.id_stanowisko = new SelectList(db.Stanowiska, "id_stanowisko", "nazwa_stanowiska");
+            return View();
+        }
+
         // POST: Testies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -143,7 +149,7 @@ namespace TestCreatorWebSite.Controllers
                 pc.id_test = v.id_test;
                 pc.is_visible = v.is_visible;
                 pc.tresc_pytania = v.tresc_pytania;
-                pc.type = v.typ;
+                pc.typ = v.typ;
                 foreach (var v1 in v.Odpowiedz)
                 {
                     Models.Odpowiedz odp = new Models.Odpowiedz();
@@ -181,8 +187,51 @@ namespace TestCreatorWebSite.Controllers
             return new JavaScriptSerializer().Serialize(p);  //Json(new { foo = "bar", baz = "Blech" });//pytania, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Testies/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpPost]
+        public bool SaveTest(TestSave test)
+        {
+            try
+            {
+                Testy testy = new Testy();
+                testy.data_stworzenia = DateTime.Now;
+                testy.is_visible = true;
+                testy.id_autor = 1; //zamienic na zalogowanego
+                testy.id_stanowisko = test.id_stanowisko;
+                testy.nazwa = test.Name;
+
+                db.Testy.Add(testy);
+                db.SaveChanges();
+
+                foreach (var pyt in test.listPytania)
+                {
+                    Pytania pytania = new Pytania();
+                    pytania.is_visible = true;
+                    pytania.id_test = testy.id_test;
+                    pytania.tresc_pytania = pyt.tresc_pytania;
+                    pytania.typ = pyt.typ;
+                    db.Pytania.Add(pytania);
+                    db.SaveChanges();
+
+                    foreach (var odp in pyt.Odpowiedz)
+                    {
+                        Data.Odpowiedz odpowiedz = new Data.Odpowiedz();
+                        odpowiedz.is_visible = true;
+                        odpowiedz.id_pytanie = pytania.id_pytanie;
+                        odpowiedz.tresc_odpowiedzi = odp.tresc_odpowiedzi;
+                        odpowiedz.dobra = odp.dobra;
+                        db.Odpowiedz.Add(odpowiedz);
+                        db.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+            // GET: Testies/Delete/5
+            public ActionResult Delete(int? id)
         {
             if (id == null)
             {

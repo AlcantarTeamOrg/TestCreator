@@ -10,9 +10,8 @@ namespace TestCreatorWebSite.Models
         public int id_pytanie { get; set; }
         public string tresc_pytania { get; set; }
         public bool is_visible { get; set; }
-        public bool otwarte { get; set; }
         public int id_test { get; set; }
         public List<Odpowiedz> Odpowiedz {get; set;}
-        public int type { get; set; } //1 - otwarte, 2 - jednoktotny wybur 3 - wielokrotny
+        public int typ { get; set; } //1 - jednoktotny wybur 2 - wielokrotny 3 - liczbowy 4 - otwarte 5 - skala
     }
 }

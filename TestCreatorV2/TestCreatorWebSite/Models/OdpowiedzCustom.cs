@@ -7,5 +7,7 @@ namespace TestCreatorWebSite.Models
 {
     public class OdpowiedzCustom
     {
+        public string tresc { get; set; }
+        public bool dobra { get; set; }
     }
 }

@@ -229,6 +229,7 @@
     <Compile Include="Models\Stanowisko.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\TestCustom.cs" />
+    <Compile Include="Models\TestSave.cs" />
     <Compile Include="Models\TestUser.cs" />
     <Compile Include="Models\Uzytkownik.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -473,6 +474,7 @@
     <Content Include="Views\Shared\_LoginModal.cshtml" />
     <Content Include="Views\Testies\DetailsAdd.cshtml" />
     <Content Include="Views\Testies\DetailsFull.cshtml" />
+    <Content Include="Views\Testies\CreateFull.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

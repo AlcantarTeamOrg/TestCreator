@@ -5,6 +5,9 @@
 }
 
 @Scripts.Render("~/Scripts/jquery-3.1.1.js")
+@Scripts.Render("~/Scripts/bootstrap.js")
+@Styles.Render("~/Content/bootstrap.css")
+
 <style>
     #bodyRow {
         margin-left: 65px;
@@ -25,7 +28,7 @@
                         console.log(result);
                         for (var i = 0; i < result.length; i++) {
                             var pytanie = result[i];
-                            if (pytanie.type == 4) {
+                            if (pytanie.typ == 4) {
                                 var glownyDiv = $("<div class='row'></div>");
                                 $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
                                 $(glownyDiv).append('<textarea class="form-control" id="exampleFormControlTextarea' +
@@ -36,7 +39,7 @@
                                 $('#bodyRow').append(glownyDiv);
 
                             }
-                            else if (pytanie.type == 1) {
+                            else if (pytanie.typ == 1) {
                                 var glownyDiv = $("<div class='row'></div>");
                                 $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
                                 for (var j = 0; j < pytanie.Odpowiedz.length; j++) {
@@ -59,12 +62,12 @@
                                 }
                                 $('#bodyRow').append('<hr>');
                             }
-                            else if (pytanie.type == 2) {
+                            else if (pytanie.typ == 2) {
                                 var glownyDiv = $("<div class='row'></div>");
                                 $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
                                 for (var j = 0; j < pytanie.Odpowiedz.length; j++) {
                                     var odpowiedz = pytanie.Odpowiedz[j];
-                                    var checkList = $("<div class='form - check'></div>");
+                                    var checkList = $("<div class='form-check'></div>");
                                     if (odpowiedz.dobra == true) {
                                         checkList.append('<input class="form-check-input" checked="checked" type="checkbox" value="" id="defaultCheck' +
                                             odpowiedz.id_odpowiedz + '" disabled>');
@@ -83,7 +86,7 @@
                                 }
                                 $('#bodyRow').append('<hr>');
                             }
-                            else if (pytanie.type == 3) {
+                            else if (pytanie.typ == 3) {
                                 var glownyDiv = $("<div class='row'></div>");
                                 $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
                                 var glownyDiv = $("<div class='row'></div>");
@@ -125,35 +128,39 @@
     });
 
 </script>
-<div>
-    <h4>Test:</h4>
-    <dl class="dl-horizontal">
-        <dt>
-            @*@Html.DisplayNameFor(model => model.nazwa)*@
-            Nazwa
-        </dt>
+<div class="main">
+    <div class="center-box">
+        <div>
+            <h4>Test:</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.nazwa)*@
+                    Nazwa
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.nazwa)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.nazwa)
+                </dd>
 
-        <dt>
-            @*@Html.DisplayNameFor(model => model.data_stworzenia)*@
-            Data stworzenia
-        </dt>
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.data_stworzenia)*@
+                    Data stworzenia
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.data_stworzenia)
-        </dd>
-        <dd id="idTest" style="display: none;">
-            @Html.DisplayFor(model => model.id_test)
-        </dd>
-    </dl>
-    <hr />
-    <div class="row" id="bodyRow">
+                <dd>
+                    @Html.DisplayFor(model => model.data_stworzenia)
+                </dd>
+                <dd id="idTest" style="display: none;">
+                    @Html.DisplayFor(model => model.id_test)
+                </dd>
+            </dl>
+            <hr />
+            <div class="row" id="bodyRow">
 
+            </div>
+        </div>
+        <p>
+            @Html.ActionLink("Back to List", "Index")
+        </p>
     </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
