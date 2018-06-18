@@ -83,6 +83,15 @@
           <Property Name="data_dodania" Type="datetime" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="UzytkownikOdpowiedz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_uzytkownik" Type="int" Nullable="false" />
+          <Property Name="odpowiedz" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="id_testy" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="wynik">
           <Key>
             <PropertyRef Name="id_wynik" />
@@ -237,6 +246,7 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Testy" EntityType="Self.Testy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UzytkownikOdpowiedz" EntityType="Self.UzytkownikOdpowiedz" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="wynik" EntityType="Self.wynik" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Odpowiedz__id_py__2A164134" Association="Self.FK__Odpowiedz__id_py__2A164134">
             <End Role="Pytania" EntitySet="Pytania" />
@@ -446,6 +456,7 @@
           <FunctionImport Name="testyAutora" ReturnType="Collection(TestCreatorModel.testyAutora_Result)">
           <Parameter Name="id" Mode="In" Type="Int64" />
           </FunctionImport>
+          <EntitySet Name="UzytkownikOdpowiedz" EntityType="TestCreatorModel.UzytkownikOdpowiedz" />
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -563,6 +574,15 @@
           <Property Type="DateTime" Name="data_stworzenia" Nullable="true" />
           <Property Type="String" Name="nazwa_stanowiska" Nullable="false" MaxLength="30" />
         </ComplexType>
+        <EntityType Name="UzytkownikOdpowiedz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_uzytkownik" Type="Int32" Nullable="false" />
+          <Property Name="odpowiedz" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="id_testy" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -720,6 +740,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="UzytkownikOdpowiedz">
+            <EntityTypeMapping TypeName="TestCreatorModel.UzytkownikOdpowiedz">
+              <MappingFragment StoreEntitySet="UzytkownikOdpowiedz">
+                <ScalarProperty Name="id_testy" ColumnName="id_testy" />
+                <ScalarProperty Name="odpowiedz" ColumnName="odpowiedz" />
+                <ScalarProperty Name="id_uzytkownik" ColumnName="id_uzytkownik" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

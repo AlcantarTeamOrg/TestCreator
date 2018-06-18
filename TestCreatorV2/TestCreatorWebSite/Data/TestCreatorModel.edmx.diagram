@@ -20,6 +20,7 @@
         <AssociationConnector Association="TestCreatorModel.FK__Skala__id_odpowi__2B0A656D" />
         <AssociationConnector Association="TestCreatorModel.FK_Uzytkownicy_Role" />
         <AssociationConnector Association="TestCreatorModel.FK_Testy_Autorzy" />
+        <EntityTypeShape EntityType="TestCreatorModel.UzytkownikOdpowiedz" Width="1.5" PointX="3.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

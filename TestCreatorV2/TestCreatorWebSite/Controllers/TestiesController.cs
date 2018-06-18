@@ -55,6 +55,34 @@ namespace TestCreatorWebSite.Controllers
             return View(testy);
         }
 
+        public ActionResult DetailsUser(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Testy testy = db.Testy.Find(id);
+            if (testy == null)
+            {
+                return HttpNotFound();
+            }
+            return View(testy);
+        }
+
+        public ActionResult DetailsResolveTest(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Testy testy = db.Testy.Find(id);
+            if (testy == null)
+            {
+                return HttpNotFound();
+            }
+            return View(testy);
+        }
+
         // GET: Testies/Create
         public ActionResult Create()
         {
@@ -169,24 +197,113 @@ namespace TestCreatorWebSite.Controllers
                     }
 
                 }
-                //if (pc.Odpowiedz.Count == 1)
-                //{
-                //    pc.type = 1; //1- otwarte
-                //}
-                //else if (pc.Odpowiedz.Where(u => u.dobra == true).Count() > 1)
-                //{
-                //    pc.type = 3; // 3- wielokrotnego wyboru
-                //}
-                //else
-                //{
-                //    pc.type = 2; //2-jednokrotnego wyboru
-                //}
                 p.Add(pc);
             }
 
             return new JavaScriptSerializer().Serialize(p);  //Json(new { foo = "bar", baz = "Blech" });//pytania, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public string GetDetailsResolve(int? idTest, int? idUser)
+        {
+            var userID = Session["userID"];
+            if (idTest == null)
+            {
+                return null;
+            }
+            if (idUser == null)
+            {
+                idUser = 1;
+            }
+            int id1 = (int)idTest;
+            List<Pytania> pytania = db.Pytania
+                                        .Where(u => u.id_test == id1
+                                                && u.is_visible == true)
+                                        .ToList();
+            if (pytania == null)
+            {
+                return null;
+            }
+            string s = Json(pytania).ToString();
+            List<PytaniaCustom> p = new List<PytaniaCustom>();
+            foreach (var v in pytania)
+            {
+                PytaniaCustom pc = new PytaniaCustom();
+                pc.id_pytanie = v.id_pytanie;
+                pc.id_test = v.id_test;
+                pc.is_visible = v.is_visible;
+                pc.tresc_pytania = v.tresc_pytania;
+                pc.typ = v.typ;
+                foreach (var v1 in v.Odpowiedz)
+                {
+                    Models.Odpowiedz odp = new Models.Odpowiedz();
+                    odp.dobra = false;// v1.dobra;
+                    odp.id_odpowiedz = v1.id_odpowiedz;
+                    odp.id_pytanie = v1.id_pytanie;
+                    odp.is_visible = v1.is_visible;
+                    odp.tresc_odpowiedzi = v1.tresc_odpowiedzi;
+                    
+                    if (v1.is_visible == true)
+                    {
+                        if (pc.Odpowiedz == null)
+                        {
+                            pc.Odpowiedz = new List<Models.Odpowiedz>();
+                        }
+                        pc.Odpowiedz.Add(odp);
+                    }
+                }
+                var odpowiedzUser = db.UzytkownikOdpowiedz
+                                       .Where(u => u.id_testy == v.id_pytanie
+                                               && u.id_uzytkownik == idUser).OrderByDescending(u => u.id)
+                                       .FirstOrDefault();
+                if (v.typ == 4 || v.typ == 3)
+                {
+                    pc.Odpowiedz[0].tresc_odpowiedzi = odpowiedzUser.odpowiedz;
+                }
+
+                else if (v.typ == 2 || v.typ == 1)
+                {
+                    var trueList = odpowiedzUser.odpowiedz.Split(';');
+                    foreach (var trueO in trueList)
+                    {
+                        pc.Odpowiedz[int.Parse(odpowiedzUser.odpowiedz)-1].dobra = true;
+                    }
+                    
+                }
+                p.Add(pc);
+            }
+
+            return new JavaScriptSerializer().Serialize(p);  //Json(new { foo = "bar", baz = "Blech" });//pytania, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+
+        public bool SaveAnsver(List<UzytkownikOdpowiedz> list)
+        {
+            try
+            {
+                Session["userID"] = 5;
+                foreach (var i in list)
+                {
+                    UzytkownikOdpowiedz odp = new UzytkownikOdpowiedz();
+                    int id = db.UzytkownikOdpowiedz.Max(u => u.id);
+                    odp.id = id + 1;
+                    odp.id_testy = i.id_testy;// idTest;
+                    odp.id_uzytkownik = 1;
+                    odp.odpowiedz = i.odpowiedz;// html;
+                    db.UzytkownikOdpowiedz.Add(odp);
+                    db.SaveChanges();
+                }
+                
+                
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         [HttpPost]
         public bool SaveTest(TestSave test)
         {

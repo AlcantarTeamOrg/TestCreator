@@ -78,6 +78,15 @@
     <Property Name="data_dodania" Type="datetime" />
     <Property Name="name" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="UzytkownikOdpowiedz">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id_uzytkownik" Type="int" Nullable="false" />
+    <Property Name="odpowiedz" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="id_testy" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="wynik">
     <Key>
       <PropertyRef Name="id_wynik" />
@@ -232,6 +241,7 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Testy" EntityType="Self.Testy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Uzytkownicy" EntityType="Self.Uzytkownicy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UzytkownikOdpowiedz" EntityType="Self.UzytkownikOdpowiedz" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="wynik" EntityType="Self.wynik" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Odpowiedz__id_py__2A164134" Association="Self.FK__Odpowiedz__id_py__2A164134">
       <End Role="Pytania" EntitySet="Pytania" />

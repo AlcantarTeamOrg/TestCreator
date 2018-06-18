@@ -1,0 +1,305 @@
+﻿@model TestCreatorWebSite.Data.Testy
+
+@{
+    Layout = null;
+}
+
+@Scripts.Render("~/Scripts/jquery-3.1.1.js")
+@Scripts.Render("~/Scripts/bootstrap.js")
+@Styles.Render("~/Content/bootstrap.css")
+
+<style>
+    #bodyRow {
+        margin-left: 65px;
+    }
+</style>
+<script type="text/javascript">
+    var Details = {
+        bildTest: function () {
+            var id = parseInt($('#idTest').text());
+            $.ajax({
+                url: "../GetDetails",
+                type: 'GET',
+                data: { id: id },
+                async: true,
+                dataType: "json",
+                success: function (result) {
+                    if (result != 0) {
+                        console.log(result);
+                        for (var i = 0; i < result.length; i++) {
+                            var pytanie = result[i];
+                            if (pytanie.typ == 4) {
+                                var glownyDiv = $("<div class='row elemRow'></div>");
+                                $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                $(glownyDiv).append('<textarea class="form-control" id="atarea' +
+                                    pytanie.id_pytanie + '" rows="3"></textarea>');
+                                $(glownyDiv).append('<span style="display:none;" class="dataP" id=pId' + pytanie.id_pytanie + '>' + pytanie.typ + '</span>');
+                                $(glownyDiv).append('<hr>');
+                                $('#bodyRow').append(glownyDiv);
+
+                            }
+                            else if (pytanie.typ == 1) {
+                                var glownyDiv = $("<div class='row elemRow'></div>");
+                                $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                for (var j = 0; j < pytanie.Odpowiedz.length; j++) {
+                                    var odpowiedz = pytanie.Odpowiedz[j];
+                                    var checkList = $("<div class='form - check'></div>");
+                                    //if (odpowiedz.dobra == true) {
+                                    //    checkList.append('<input class="form-check-input" checked type="radio" value="option1" id="exampleRadios' +
+                                    //        odpowiedz.id_odpowiedz + '">');
+                                    //}
+                                    //else {
+                                    checkList.append('<input class="form-check-input" type="radio" name="radio' +
+                                        pytanie.id_pytanie + '" value="option2" id="exampleRadios' +
+                                        odpowiedz.id_odpowiedz + '">');
+                                    //}
+
+                                    checkList.append(' <label class="form-check-label" for="exampleRadios' +
+                                        odpowiedz.id_odpowiedz + '">' +
+                                        odpowiedz.tresc_odpowiedzi + '</label >');
+                                    $(glownyDiv).append('<span style="display:none;" class="dataP" id=pId' + pytanie.id_pytanie + '>' + pytanie.typ + '</span>');
+                                    $(glownyDiv).append(checkList);
+                                    $('#bodyRow').append(glownyDiv);
+                                }
+                                $('#bodyRow').append('<hr>');
+                            }
+                            else if (pytanie.typ == 2) {
+                                var glownyDiv = $("<div class='row elemRow'></div>");
+                                $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                for (var j = 0; j < pytanie.Odpowiedz.length; j++) {
+                                    var odpowiedz = pytanie.Odpowiedz[j];
+                                    var checkList = $("<div class='form-check'></div>");
+                                    //if (odpowiedz.dobra == true) {
+                                    //    checkList.append('<input class="form-check-input" checked="checked" type="checkbox" value="" id="defaultCheck' +
+                                    //        odpowiedz.id_odpowiedz + '" >');
+                                    //}
+                                    //else {
+                                    checkList.append('<input class="form-check-input" type="checkbox"' +
+                                        'value="" name="check' + pytanie.id_pytanie + '" id = "defaultCheck' +
+                                        odpowiedz.id_odpowiedz + '" >');
+                                    //}
+
+                                    checkList.append(' <label class="form-check-label" for="defaultCheck' +
+                                        odpowiedz.id_odpowiedz + '">' +
+                                        odpowiedz.tresc_odpowiedzi + '</label >');
+                                    $(glownyDiv).append('<span style="display:none;" class="dataP" id=pId' + pytanie.id_pytanie + '>' + pytanie.typ + '</span>');
+                                    $(glownyDiv).append(checkList);
+
+                                    $('#bodyRow').append(glownyDiv);
+                                }
+                                $('#bodyRow').append('<hr>');
+                            }
+                            else if (pytanie.typ == 3) {
+                                var glownyDiv = $("<div class='row elemRow'></div>");
+                                $(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                //var glownyDiv = $("<div class='row'></div>");
+                                //$(glownyDiv).append('<h2>' + pytanie.tresc_pytania + '</h2>');
+                                //$(glownyDiv).append('<select >' +
+                                //    '<option value="odp" >' + pytanie.Odpowiedz[0].tresc_odpowiedzi + '</option >' +
+                                //    '</select >');
+                                var select = $('<select class="form-control"' +
+                                    'id="selectNumber' + pytanie.id_pytanie + '"> ' +
+                                    '</select >');
+                                for (var j = 1; j < 101; j++) {
+                                    select.append('<option value="' + j + '" >' + j + '</option >');
+                                }
+                                $(glownyDiv).append(select);
+                                $(glownyDiv).append('<span style="display:none;" class="dataP" id=pId' + pytanie.id_pytanie + '>' + pytanie.typ + '</span>');
+                                $(glownyDiv).append('<hr>');
+                                $('#bodyRow').append(glownyDiv);
+                            }
+                        }
+                    } else {
+                        //swal({
+                        //    title: "Wystąpił błąd podczas pobierania danych",
+                        //    type: "error",
+                        //    showConfirmButton: true
+                        //})
+                    }
+                },
+                error: function () {
+                    //swal({
+                    //    title: "Problem z połączeniem",
+                    //    type: "error",
+                    //    showConfirmButton: true
+                    //})
+                }
+            });
+        },
+
+        saveQuestion: function () {
+            var body = $('#bodyRow').html();
+            var listOdpowiedzi = new Array();
+            var rows = document.getElementsByClassName('elemRow');
+            for (var i = 0; i < rows.length; i++) {
+                var elem = rows[i].getElementsByClassName('dataP');
+                var idSpan = elem[0].id;//.split('pId','');
+                var typ = parseInt($('#' + idSpan).text());
+                var id = idSpan.replace('pId', '');
+                if (typ == 1) {
+                    var radios = document.getElementsByName('radio' + id);
+                    for (var j = 0, length = radios.length; j < length; j++) {
+                        if (radios[j].checked) {
+                            var odpowiedz = {
+                                id: 0,
+                                id_uzytkownik: 1,
+                                odpowiedz: (j + 1).toString(),
+                                id_testy: parseInt(id)
+                            }
+                            listOdpowiedzi[i] = odpowiedz;
+                        }
+                    }
+                }
+                else if (typ == 2) {
+                    var radios = document.getElementsByName('check' + id);
+                    var isAdd = false;
+                    for (var j = 0, length = radios.length; j < length; j++) {
+                        if (isAdd == false) {
+                            if (radios[j].checked) {
+                                var odpowiedz = {
+                                    id: 0,
+                                    id_uzytkownik: 1,
+                                    odpowiedz: (j + 1).toString(),
+                                    id_testy: parseInt(id)
+                                }
+                                listOdpowiedzi[i] = odpowiedz;
+                                isAdd = true;
+                            }
+                        }
+                        else {
+                            listOdpowiedzi[i].odpowiedz.odpowiedz += ";" + (j + 1).toString();
+                        }
+                        
+                    }
+                }
+                else if (typ == 3) {
+                    var odpowiedz = {
+                        id: 0,
+                        id_uzytkownik: 1,
+                        odpowiedz: $('#selectNumber' + id).val(),
+                        id_testy: parseInt(id)
+                    }
+                    listOdpowiedzi[i] = odpowiedz;
+                }
+                else if (typ == 4) {
+                    var odpowiedz = {
+                        id: 0,
+                        id_uzytkownik: 1,
+                        odpowiedz: $('#atarea' + id).val(),
+                        id_testy: parseInt(id)
+                    }
+                    listOdpowiedzi[i] = odpowiedz;
+                }
+            }
+
+
+
+            $.ajax({
+                url: "/Testies/SaveAnsver",
+                type: 'POST',
+                data: {
+                    list: listOdpowiedzi
+                },
+                async: true,
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function () {
+                    //swal({
+                    //    title: "Problem z połączeniem",
+                    //    type: "error",
+                    //    showConfirmButton: true
+                    //})
+                }
+            });
+        }
+    }
+
+    //jQuery(function () {
+    //    alert("hello world");
+    //});
+
+
+    $(document).ready(function () {
+        Details.bildTest();
+        $(document).keyup(function (event) {
+            if (event.keyCode == 44) {
+
+            }
+        });
+    });
+
+</script>
+<script language="javascript">
+    function clearData() {
+        window.clipboardData.setData('text', '')
+    }
+    browserName = navigator.appName
+    browserVersion = parseInt(navigator.appVersion)
+
+    document.onmousedown = checkforRightMouseButtonClick;
+    if (browserVersion < 5 && browserName == "Netscape") {
+        window.onmousedown = checkforRightMouseButtonClick;
+    }
+
+    function rightClickPressed() {
+        alert("For Security reasons, Right-click has\nbeen disabled for this Web Page\n\nSorry for any inconvenience.");
+    }
+
+    function checkforRightMouseButtonClick(mouseEvent) {
+        if (((browserName != "Microsoft Internet Explorer") && (mouseEvent.which > 1)) ||
+            ((browserName == "Netscape") && (mouseEvent.which > 1))) {
+            rightClickPressed()
+            return false;
+        }
+        else
+            return true;
+    }
+</script>
+<body ondragstart="return false;" onselectstart="return false;" oncontextmenu="return false;">
+    <div class="main">
+        <div class="center-box">
+            <div>
+                <h4>Test:</h4>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @*@Html.DisplayNameFor(model => model.nazwa)*@
+                        Nazwa
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.nazwa)
+                    </dd>
+
+                    <dt>
+                        @*@Html.DisplayNameFor(model => model.data_stworzenia)*@
+                        Data stworzenia
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.data_stworzenia)
+                    </dd>
+                    <dd id="idTest" style="display: none;">
+                        @Html.DisplayFor(model => model.id_test)
+                    </dd>
+                </dl>
+                <hr />
+                <div class="row" id="bodyRow">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-dark" id="btnSaveTest"
+                            onclick="Details.saveQuestion()">
+                        Zapisz
+                    </button>
+                </div>
+            </div>
+            <p>
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+        </div>
+    </div>
+</body>

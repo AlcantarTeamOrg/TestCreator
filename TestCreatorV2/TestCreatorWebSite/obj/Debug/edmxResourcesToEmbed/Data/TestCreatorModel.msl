@@ -152,5 +152,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="UzytkownikOdpowiedz">
+      <EntityTypeMapping TypeName="TestCreatorModel.UzytkownikOdpowiedz">
+        <MappingFragment StoreEntitySet="UzytkownikOdpowiedz">
+          <ScalarProperty Name="id_testy" ColumnName="id_testy" />
+          <ScalarProperty Name="odpowiedz" ColumnName="odpowiedz" />
+          <ScalarProperty Name="id_uzytkownik" ColumnName="id_uzytkownik" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

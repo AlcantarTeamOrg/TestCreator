@@ -179,6 +179,7 @@
     <FunctionImport Name="testyAutora" ReturnType="Collection(TestCreatorModel.testyAutora_Result)">
       <Parameter Name="id" Mode="In" Type="Int64" />
     </FunctionImport>
+    <EntitySet Name="UzytkownikOdpowiedz" EntityType="TestCreatorModel.UzytkownikOdpowiedz" />
   </EntityContainer>
   <EntityType Name="Role">
     <Key>
@@ -296,4 +297,13 @@
     <Property Type="DateTime" Name="data_stworzenia" Nullable="true" />
     <Property Type="String" Name="nazwa_stanowiska" Nullable="false" MaxLength="30" />
   </ComplexType>
+  <EntityType Name="UzytkownikOdpowiedz">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="id_uzytkownik" Type="Int32" Nullable="false" />
+    <Property Name="odpowiedz" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="id_testy" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

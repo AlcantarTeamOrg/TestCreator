@@ -36,6 +36,7 @@ namespace TestCreatorWebSite.Data
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Uzytkownicy> Uzytkownicy { get; set; }
         public virtual DbSet<wynik> wynik { get; set; }
+        public virtual DbSet<UzytkownikOdpowiedz> UzytkownikOdpowiedz { get; set; }
     
         public virtual ObjectResult<DodawanieUzytkownika_Result> DodawanieUzytkownika(string login, string name, string haslo, Nullable<int> id_rola)
         {
